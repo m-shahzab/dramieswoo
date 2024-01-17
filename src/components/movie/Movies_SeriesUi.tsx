@@ -102,7 +102,7 @@ function Movies_SeriesUi({
           </>
         )}
         {moboFilter && (
-          <div className="bg-black/70 absolute top-16 inset-x-0 bottom-0">
+          <div className="bg-black/70 absolute top-16 inset-x-0 bottom-0 rounded-md">
             <MobileFilter />
           </div>
         )}
