@@ -1,22 +1,33 @@
 import Container from "@/components/container/Container";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useState } from "react";
 import { FaCamera } from "react-icons/fa6";
 import { createPortal } from "react-dom";
 import Model from "@/components/users/Model";
 import LazyImage from "@/utils/LazyImage";
 import appwriteservice from "@/appwrite/services";
+import appwriteAuth from "@/appwrite/auth";
+import { useNavigate } from "react-router-dom";
+import { logout as logoutUser } from "@/redux/slice/authSlice";
 import { Button } from "@/components/ui/button";
 
 function ProfileP() {
   console.clear();
   const users = useAppSelector((state) => state.authSlice.users);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const isDp = users?.profileUrl
     ? appwriteservice.getProfileUrl(users?.profileUrl as string)
     : "/imgs/defaultProfilePic.png";
 
   const [model, setModel] = useState(false);
+
+  const logoutH = async () => {
+    await appwriteAuth.logout();
+    dispatch(logoutUser());
+    navigate("/login");
+  };
 
   return (
     <Container className="myContainer mt-16">
@@ -50,7 +61,7 @@ function ProfileP() {
                 <strong>Phone : {users?.phone || "N/A"}</strong>
               </div>
               <div className="mt-4">
-                <Button onClick={() => alert("logout")}>Logout</Button>
+                <Button onClick={logoutH}>Logout</Button>
               </div>
             </div>
 
