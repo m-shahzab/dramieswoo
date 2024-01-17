@@ -17,10 +17,6 @@ function App() {
   const { isLoading } = useGeTtrendingMoviesQuery(
     "trending/all/week?language=en-US"
   );
-  // useGeTtrendingMoviesQuery("trending/movie/day?language=en-US");
-  // useGeTtrendingMoviesQuery("trending/tv/day?language=en-US");
-  // useGeTtrendingMoviesQuery("person/popular");
-  // useGeTtrendingMoviesQuery("movie/upcoming?language=en-US&page=1&region=br");
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
 
   const navigate = useNavigate();
