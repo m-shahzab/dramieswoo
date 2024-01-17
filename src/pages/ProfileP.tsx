@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import Model from "@/components/users/Model";
 import LazyImage from "@/utils/LazyImage";
 import appwriteservice from "@/appwrite/services";
+import { Button } from "@/components/ui/button";
 
 function ProfileP() {
   console.clear();
@@ -40,10 +41,16 @@ function ProfileP() {
             </div>
             <div className="w-5/6 bg-slate-50 p-4 text-black">
               <div>
-                <strong>Name :</strong>
+                <strong>Name : {users?.name}</strong>
               </div>
               <div>
-                <strong>Email :</strong>
+                <strong>Email : {users?.email}</strong>
+              </div>
+              <div>
+                <strong>Phone : {users?.phone || "N/A"}</strong>
+              </div>
+              <div className="mt-4">
+                <Button onClick={() => alert("logout")}>Logout</Button>
               </div>
             </div>
 
