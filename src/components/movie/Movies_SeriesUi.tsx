@@ -92,7 +92,7 @@ function Movies_SeriesUi({
                   })}
                 </div>
               </div>
-              <div className="">
+              <div className="sssssssss col-[1/-1]">
                 <Pagination
                   currentPage={page}
                   totalPage={movieData?.total_pages}
