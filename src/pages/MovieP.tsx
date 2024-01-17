@@ -1,8 +1,7 @@
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Movies_SeriesUi from "../components/movie/Movies_SeriesUi";
-import { movieGenreList } from "@/lib/movieGenre_seriesGenres";
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { setFilter } from "@/redux/slice/movieSlice";
 
 function MovieP() {
@@ -33,11 +32,10 @@ function MovieP() {
       <Movies_SeriesUi
         isFetching={isFetching}
         movieData={movieData}
-        genresList={movieGenreList}
         media_type="movie"
       />
     </div>
   );
 }
 
-export default MovieP;
+export default memo(MovieP);

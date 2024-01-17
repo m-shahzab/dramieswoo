@@ -1,25 +1,31 @@
 import { TypographyP } from "@/components/ui/Typography/TypographyP";
 import { Button } from "@/components/ui/button";
 import YearsPopOver from "@/components/YearsPopOver";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useFilterApplyBtn } from "../lib/filterApplyBtn";
 import { v4 as uuidv4 } from "uuid";
+import { movieGenreList, seriesGenreList } from "@/lib/movieGenre_seriesGenres";
+import { useAppSelector } from "@/redux/hooks";
 
-function Filter({
-  genresList,
-}: {
-  genresList: {
-    id: number;
-    name: string;
-  }[];
-}) {
-  console.log("filter component:::");
+// import React from 'react'
+
+function Filter() {
+  const { genres, year, popularity } = useAppSelector(
+    (state) => state.movieSlice.movieFilter
+  );
+
   const [selectFilter, setSelectFilter] = useState({
-    genres: "",
-    popularity: "popularity.desc",
-    year: "",
+    genres: genres,
+    popularity: popularity,
+    year: year,
     page: 1,
   });
+
+  const dynamicGenres: {
+    id: number;
+    name: string;
+  }[] =
+    window.location.pathname === "/movies" ? movieGenreList : seriesGenreList;
 
   const filterDispatch = useFilterApplyBtn(selectFilter);
   const popularityBtn = [
@@ -55,7 +61,7 @@ function Filter({
           <span className="">Genres</span>
         </TypographyP>
         <div className="flex flex-wrap justify-start gap-2">
-          {genresList.map((genre) => {
+          {dynamicGenres.map((genre) => {
             return (
               <Button
                 key={uuidv4()}
@@ -140,4 +146,4 @@ function Filter({
     </>
   );
 }
-export default Filter;
+export default React.memo(Filter);

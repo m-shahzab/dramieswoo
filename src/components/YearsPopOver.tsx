@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 function YearsPopOver({
@@ -102,4 +103,4 @@ function YearsPopOver({
   );
 }
 
-export default YearsPopOver;
+export default React.memo(YearsPopOver);

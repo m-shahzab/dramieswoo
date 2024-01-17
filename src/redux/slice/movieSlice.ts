@@ -36,6 +36,7 @@ const initialState: {
     page: number;
   };
   isTrailerOpen: boolean;
+  moboFilter: boolean;
   favoriteList: FavoriteListProps;
 } = {
   nextMovies: [], // Array to store next 2 movies
@@ -48,6 +49,7 @@ const initialState: {
     page: 0,
   },
   isTrailerOpen: false,
+  moboFilter: false,
   favoriteList: {
     total: 0,
     documents: [],
@@ -75,6 +77,10 @@ const movieSlice = createSlice({
     },
     setTrailerOpen(state, action: PayloadAction<boolean>) {
       state.isTrailerOpen = action.payload;
+    },
+
+    setMoboFilter(state, action: PayloadAction<boolean>) {
+      state.moboFilter = action.payload;
     },
     addToFavoriteList(state, action: PayloadAction<FavoriteListProps>) {
       state.favoriteList = action.payload;
@@ -114,6 +120,7 @@ export const {
   prevPage,
   addNewMovieToFavList,
   deleteFromFavoriteList,
+  setMoboFilter,
   setFilter,
   setTrailerOpen,
   addToFavoriteList,

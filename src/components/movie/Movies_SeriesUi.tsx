@@ -4,29 +4,35 @@ import { Skeleton } from "@/components/ui/skeleton.tsx";
 import MovieCard from "@/components/movie/MovieCard";
 import AnimateTitle from "@/components/ui/Typography/AnimateTitle";
 import { motion } from "framer-motion";
-import { v4 as uuidv4 } from "uuid";
 import Filter from "@/components/Filter";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Pagination from "@/lib/Pagination";
+import { Button } from "../ui/button";
+import { memo } from "react";
+import { MdFilterListOff, MdFilterList } from "react-icons/md";
+import { setMoboFilter } from "@/redux/slice/movieSlice";
+import MobileFilter from "./MobileFilter";
 
-export default function Movies_SeriesUi({
+function Movies_SeriesUi({
   isFetching,
   movieData,
-  genresList,
   media_type,
 }: {
   media_type: string;
   isFetching: boolean;
   movieData: Movies | undefined;
-  genresList: GenreTpes[];
 }) {
+  console.log("movie page");
   const { page } = useAppSelector((state) => state.movieSlice.movieFilter);
+  const moboFilter = useAppSelector((state) => state.movieSlice.moboFilter);
+  const dispatch = useAppDispatch();
   const copyMovie = [...(movieData?.results ?? [])];
   const spliceMovie = 8;
+
   return (
     <Container className="mt-16">
       <motion.div
-        className="moviePage"
+        className="moviePage relative"
         initial="initial"
         whileHover="whileHover"
       >
@@ -36,19 +42,31 @@ export default function Movies_SeriesUi({
           </div>
         ) : (
           <>
-            <TypographyH2 className="mb-4 pb-3 relative before:absolute before:left-0 before:bottom-0 before:w-9 before:h-1 before:bg-primary before:rounded-sm before:z-[-1]">
+            <TypographyH2 className="mb-4 pb-3 relative before:absolute before:left-0 before:bottom-0 before:w-9 before:h-1 before:bg-primary before:rounded-sm before:z-[-1] flex items-center justify-between">
               <AnimateTitle text="Movies"></AnimateTitle>
+              <Button
+                className="@4xl:hidden block p-1"
+                onClick={() => dispatch(setMoboFilter(!moboFilter))}
+                size={"icon"}
+                variant={"outline"}
+              >
+                {moboFilter ? (
+                  <MdFilterListOff className="w-full h-full" />
+                ) : (
+                  <MdFilterList className="w-full h-full" />
+                )}
+              </Button>
             </TypographyH2>
             <div className="grid grid-cols-3 grid-rows-1 gap-4">
               {/* child1 */}
               <div className="@4xl:col-span-2 col-span-3">
                 <div className="grid gap-2 gap-y-6 @xs:grid-cols-2 @lg:grid-cols-3 @2xl:grid-cols-4">
-                  {copyMovie.splice(0, spliceMovie).map((movie) => {
+                  {copyMovie.splice(0, spliceMovie).map((movie, i) => {
                     return (
                       <MovieCard
                         className="h-max"
                         movie={movie}
-                        key={uuidv4()}
+                        key={i + movie.backdrop_path}
                         linkPath={`/${media_type + "/" + movie.id}/overview`}
                       />
                     );
@@ -56,18 +74,18 @@ export default function Movies_SeriesUi({
                 </div>
               </div>
               {/* child2 */}
-              <div className="col-start-3 @4xl:block hidden two">
-                <Filter genresList={genresList} />
+              <div className="col-start-3 @4xl:block hidden">
+                <Filter />
               </div>
               {/* child3 */}
               <div className="col-span-3 row-start-2 h-max three">
                 <div className="grid gap-2 gap-y-6 @xs:grid-cols-2 @lg:grid-cols-3 @2xl:grid-cols-4 @4xl:grid-cols-5 @5xl:grid-cols-6">
-                  {copyMovie.splice(0).map((movie) => {
+                  {copyMovie.splice(0).map((movie, i) => {
                     return (
                       <MovieCard
                         className="h-max"
                         movie={movie}
-                        key={uuidv4()}
+                        key={i + movie.poster_path}
                         linkPath={`/${media_type + "/" + movie.id}/overview`}
                       />
                     );
@@ -83,7 +101,14 @@ export default function Movies_SeriesUi({
             </div>
           </>
         )}
+        {moboFilter && (
+          <div className="bg-black/70 absolute top-16 inset-x-0 bottom-0">
+            <MobileFilter />
+          </div>
+        )}
       </motion.div>
     </Container>
   );
 }
+
+export default memo(Movies_SeriesUi);
