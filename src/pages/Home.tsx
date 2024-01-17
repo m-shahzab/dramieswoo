@@ -1,31 +1,19 @@
 import Hero from "@/components/home/hero/Hero";
 import Main from "@/components/home/main/Main";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
-import { addToFavoriteList, nextTwoMovies } from "@/redux/slice/movieSlice";
-import { useEffect } from "react";
-import appwriteservice from "@/appwrite/services";
+import { nextTwoMovies } from "@/redux/slice/movieSlice";
+import { memo, useEffect } from "react";
+import useFetchFavList from "@/hooks/fetchPosts";
 
-export default function Home() {
+function Home() {
   console.log("home page");
-  const { data, isLoading } = useGeTtrendingMoviesQuery(
+  const { data } = useGeTtrendingMoviesQuery(
     "trending/all/week?language=en-US"
   );
+  const { fetchFavList } = useFetchFavList();
+  fetchFavList({});
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.authSlice.users);
-  // const fetchPosts = async () => {
-  //   const favPosts = await appwriteservice.getFavList({
-  //     user_id: String(users?.id),
-  //   });
-  //   const posts = favPosts as any;
-  //   console.log(posts, "from home");
-  //   if (posts.documents.length !== 0) {
-  //     posts.documents.map((post: any) => {
-  //       dispatch(addToFavoriteList(post));
-  //     });
-  //   }
-  // };
   // const randamNum = Math.floor(Math.random() * (17 - 0 + 1) + 0);
   const randamNum = 3;
   const copyData = [...(data?.results ?? [])];
@@ -36,17 +24,12 @@ export default function Home() {
   const contentInfo = `${isMovieOrTv}/${ID}`; // get movieORtv info
   useEffect(() => {
     dispatch(nextTwoMovies({ nextMovies: next2Movie }));
-    // fetchPosts();
   }, []);
   return (
     <>
-      {isLoading ? (
-        <div className="w-screen h-screen">
-          <Skeleton className="animate-pulse w-full h-full" />
-        </div>
-      ) : (
+      {data && (
         <>
-          <div className="@md:h-[40rem] h-[20rem] relative">
+          <div className="@md:h-[40rem] h-[auto] relative">
             <Hero contentInfo={contentInfo} />
           </div>
           <Main />
@@ -55,3 +38,5 @@ export default function Home() {
     </>
   );
 }
+
+export default memo(Home);

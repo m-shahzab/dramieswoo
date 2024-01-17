@@ -17,7 +17,7 @@ function AddToFavList({
     poster_path: string;
   };
 }) {
-  console.log("AddToFavList::::::::");
+  // console.log("AddToFavList::::::::");
   const users = useAppSelector((state) => state.authSlice.users);
   const favData = {
     ...data,

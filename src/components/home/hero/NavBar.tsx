@@ -9,9 +9,9 @@ import { motion } from "framer-motion";
 import Aside from "@/components/Aside";
 import { useAppSelector } from "@/redux/hooks";
 import appwriteservice from "@/appwrite/services";
+import { memo } from "react";
 
-function NavBar({ className }: { className?: string }) {
-  console.log("navbar component");
+function NavBar() {
   const navigate = useNavigate();
   const users = useAppSelector((state) => state.authSlice.users);
 
@@ -35,7 +35,7 @@ function NavBar({ className }: { className?: string }) {
   ];
   return (
     <motion.nav
-      className={` ${className} bg-card/80`}
+      className={`@container/navCon fixed z-10 top-0 left-0 right-0 bg-card/80`}
       initial={{ opacity: 0, y: -100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, delay: 0.5 }}
@@ -85,8 +85,8 @@ function NavBar({ className }: { className?: string }) {
             className="cursor-pointer"
             onClick={() => navigate("/profile")}
           >
-            <AvatarImage src={isDp as string} alt={`@${users?.name}`} />
-            <AvatarFallback>{users?.name}</AvatarFallback>
+            <AvatarImage src={isDp as string} />
+            <AvatarFallback>{"SG"}</AvatarFallback>
           </Avatar>
         </div>
       </Container>
@@ -94,4 +94,4 @@ function NavBar({ className }: { className?: string }) {
   );
 }
 
-export default NavBar;
+export default memo(NavBar);

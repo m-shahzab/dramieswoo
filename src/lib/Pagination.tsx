@@ -17,13 +17,13 @@ function Pagination({
   totalPage: number | undefined;
 }) {
   const dispatch = useAppDispatch();
-  const { fetchPosts } = useFetchPosts();
+  const { fetchFavList } = useFetchPosts();
   const nextPate = () => {
     if (!forAppwrite) {
       dispatch(nextPage(currentPage + 1));
     } else {
       console.log("next page for appwrite");
-      fetchPosts({
+      fetchFavList({
         page: currentPage,
         lastId,
         loading: true,
@@ -36,7 +36,7 @@ function Pagination({
       dispatch(prevPage(currentPage - 1));
     } else {
       console.log("next page for appwrite");
-      fetchPosts({
+      fetchFavList({
         page: currentPage,
         preId,
         loading: true,

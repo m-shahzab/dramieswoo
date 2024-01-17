@@ -5,7 +5,7 @@ import "swiper/css/scrollbar";
 import { Scrollbar } from "swiper/modules";
 import "@splidejs/splide/dist/css/splide.min.css";
 import { TypographyH2 } from "./ui/Typography/TypographyH2";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { motion } from "framer-motion";
 import AnimateTitle from "./ui/Typography/AnimateTitle";
 import MovieCard from "./movie/MovieCard";
@@ -91,4 +91,4 @@ function MainSlider({
     </motion.div>
   );
 }
-export default MainSlider;
+export default memo(MainSlider);

@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { router } from "@/Routes/Routes";
 import { RouterProvider } from "react-router-dom";
-import Trailer from "./components/movie/Trailer";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <>
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">

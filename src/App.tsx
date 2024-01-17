@@ -1,5 +1,4 @@
-import { useAppDispatch } from "./redux/hooks";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import auth from "./appwrite/auth";
 import { login, logout } from "@/redux/slice/authSlice";
 import { Card, CardHeader } from "@/components/ui/card";
@@ -10,23 +9,21 @@ import NavBar from "./components/home/hero/NavBar";
 import { createPortal } from "react-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useFetchPosts from "./hooks/fetchPosts";
+import { useAppDispatch } from "./redux/hooks";
 
 function App() {
   console.log("app");
   const { isLoading } = useGeTtrendingMoviesQuery(
     "trending/all/week?language=en-US"
   );
-  const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
 
+  const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { fetchPosts } = useFetchPosts();
 
   const isLogin = async () => {
     try {
       const acc = await auth.getCurrentUser();
-      console.log(acc);
       if (acc) {
         const userj = {
           id: acc.$id,
@@ -37,9 +34,6 @@ function App() {
           profileUrl: acc.prefs.profileUrl,
         };
         dispatch(login(userj));
-        fetchPosts({
-          page: 0,
-        });
       } else {
         dispatch(logout());
         navigate("/login");
@@ -51,12 +45,10 @@ function App() {
 
   useEffect(() => {
     isLogin();
-  }, [fetchPosts]);
+  }, []);
   return (
     <>
-      {isLgn && (
-        <NavBar className="@container/navCon fixed z-10 top-0 left-0 right-0" />
-      )}
+      {isLgn && <NavBar />}
       <div className="@container App">
         {isLoading ? (
           <Card className="h-screen grid place-items-center">
@@ -78,4 +70,4 @@ function App() {
     </>
   );
 }
-export default App;
+export default memo(App);
