@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+}
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  width: 0px;
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --heroOverlay: 0 0% 50%;
+    --shimerColor: 255 255 255 / 0.1;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 315 64% 61%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 210 13% 85%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    /* --accent: 60 4.8% 95.9%; */
+    --accent: 212 13% 19%;
+    --accent-foreground: 210 13% 85%;
+    /* --destructive: 0 84.2% 60.2%; */
+    --destructive: 212 13% 19%;
+    --destructive-foreground: 60 9.1% 97.8%;
+
+    --border: 211 13% 32%;
+    --input: 211 13% 32%;
+    --ring: 315 64% 61%;
+    --radius: 0.5rem;
+
+    --swiper-scrollbar-bg-color: hsla(225, 39%, 18%, 0.301);
+    --swiper-scrollbar-bottom: 0;
+    --swiper-scrollbar-drag-bg-color: hsl(225, 40%, 18%);
+  }
+
+  .dark {
+    --background: 223 30% 8%;
+    --heroOverlay: 0 0% 0%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 225 59% 11%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 225 59% 11%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 315 64% 61%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 225 40% 18%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 225 40% 18%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 225 40% 18%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 225 40% 18%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 225 40% 18%;
+    --input: 225 40% 18%;
+    --ring: 315 64% 61%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.swiper-scrollbar {
+  @apply bg-primary;
+}
+
+.myContainer {
+  border: 2px solid red;
+}
+
+ul.flex li svg {
+  @apply text-[2rem];
+  @apply text-primary;
+}
+
+ul.space-y-2 li.group svg {
+  @apply text-xl;
+}
