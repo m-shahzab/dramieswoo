@@ -3,7 +3,6 @@ import HeroNextMovies from "./HeroNextMovies";
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/redux/hooks";
 import { v4 as uuidv4 } from "uuid";
-
 import {
   LuStar,
   LuClock,
@@ -14,12 +13,12 @@ import {
 
 import { motion } from "framer-motion";
 import AnimateTitle from "@/components/ui/Typography/AnimateTitle";
+import { memo } from "react";
 
 interface HeroContentProps {
   movieInfo: Movie;
 }
 function HeroContent({ movieInfo }: HeroContentProps) {
-  console.log("hero content");
   const nextMovies = useAppSelector((state) => state.movieSlice.nextMovies);
 
   const year = new Date(
@@ -30,13 +29,12 @@ function HeroContent({ movieInfo }: HeroContentProps) {
   const mint = movieInfo.runtime % 60;
   return (
     <motion.div
-      className="relative z-20 flex mt-16 h-[calc(100%_-_4rem)]"
+      className="relative z-20 flex flex-col mt-16 h-[calc(100%_-_4rem)] space-y-8"
       initial="initial"
       whileHover="whileHover"
     >
-      {/* left */}
-      <div className="w-[60%] flex flex-col justify-center">
-        <div>
+      <div className="w-full flex flex-col justify-center">
+        <>
           <motion.h1
             className="font-nova scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
             initial={{
@@ -157,11 +155,11 @@ function HeroContent({ movieInfo }: HeroContentProps) {
               Add List
             </Button>
           </motion.div>
-        </div>
+        </>
       </div>
-      {/* right */}
-      <div className="w-[40%] flex flex-col justify-center">
-        <div className="flex flex-col space-y-4">
+
+      <div className="w-full flex flex-col justify-center">
+        <div className="flex flex-col">
           {nextMovies?.map((movie, index) => {
             const HeroNextMoviesAni = {
               hidden: {
@@ -194,5 +192,4 @@ function HeroContent({ movieInfo }: HeroContentProps) {
     </motion.div>
   );
 }
-
-export default HeroContent;
+export default memo(HeroContent);
