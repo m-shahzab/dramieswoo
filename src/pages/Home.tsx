@@ -29,7 +29,7 @@ function Home() {
     <>
       {data && (
         <>
-          <div className="@md:h-[40rem] h-[auto] relative">
+          <div className="add_fix_height relative">
             <Hero contentInfo={contentInfo} />
           </div>
           <Main />

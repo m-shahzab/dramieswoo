@@ -18,29 +18,29 @@ function Main() {
   );
 
   const allDataLists = [
-    {
-      title: "Upcoming",
-      label: "movie",
-      data: upcomingData,
-    },
+    // {
+    //   title: "Upcoming",
+    //   label: "movie",
+    //   data: upcomingData,
+    // },
     {
       label: "all",
       data: allData,
     },
-    {
-      label: "movies",
-      data: movieData,
-    },
-    {
-      label: "series",
-      data: seriesData,
-    },
-    {
-      label: "People",
-      data: personData,
-      title: "Popular",
-      person: true,
-    },
+    // {
+    //   label: "movies",
+    //   data: movieData,
+    // },
+    // {
+    //   label: "series",
+    //   data: seriesData,
+    // },
+    // {
+    //   label: "People",
+    //   data: personData,
+    //   title: "Popular",
+    //   person: true,
+    // },
   ];
 
   return (
@@ -49,8 +49,8 @@ function Main() {
         allDataLists.map((allDataList, i) => (
           <MainSlider
             label={allDataList.label}
-            person={allDataList.person}
-            title={allDataList.title}
+            // person={allDataList.person}
+            // title={allDataList.title}
             data={allDataList.data}
             key={i}
           />
