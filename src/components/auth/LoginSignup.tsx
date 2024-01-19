@@ -8,17 +8,26 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { TypographyP } from "@/components/ui/Typography/TypographyP";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { formSchema } from "@/lib/formSchema";
 import * as z from "zod";
+import { ClipLoader } from "react-spinners";
 
 type LoginSignupProps = {
   isSignUp?: boolean;
   onSubmit: (data: z.infer<typeof formSchema>) => void;
+  error: string | null;
+  loading: boolean;
 };
 
-function LoginSignup({ onSubmit, isSignUp = false }: LoginSignupProps) {
+function LoginSignup({
+  error,
+  loading,
+  onSubmit,
+  isSignUp = false,
+}: LoginSignupProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,7 +49,7 @@ function LoginSignup({ onSubmit, isSignUp = false }: LoginSignupProps) {
                 <FormControl>
                   <Input placeholder="Enter your name" {...field} required />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-500" />
               </FormItem>
             )}
           />
@@ -54,7 +63,7 @@ function LoginSignup({ onSubmit, isSignUp = false }: LoginSignupProps) {
               <FormControl>
                 <Input placeholder="Enter your email" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -71,13 +80,20 @@ function LoginSignup({ onSubmit, isSignUp = false }: LoginSignupProps) {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
-        <Button className="mt-4" type="submit">
-          Submit
-        </Button>
+        {error && (
+          <TypographyP className="text-red-500 text-center">
+            {error}
+          </TypographyP>
+        )}
+        <div>
+          <Button className="mt-4 grid place-items-center" type="submit">
+            {loading ? <ClipLoader size={20} color="#0c142d" /> : "Submit"}
+          </Button>
+        </div>
       </form>
     </Form>
   );

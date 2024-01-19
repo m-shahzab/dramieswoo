@@ -46,7 +46,7 @@ export class AuthService {
         return userAccount;
       }
     } catch (error) {
-      console.log("Appwrite serive :: createAccount :: error", error);
+      throw error;
     }
   }
 
@@ -57,7 +57,7 @@ export class AuthService {
       alert(JSON.stringify(acc)); //why its return undefined on mobile browser
       return acc;
     } catch (error) {
-      console.log("Appwrite serive :: login :: error", error);
+      throw error;
     }
   }
 
