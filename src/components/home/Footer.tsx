@@ -6,7 +6,7 @@ function Footer() {
     <footer className="bg-card my-2">
       <Container>
         <TypographyP className="bg-card px-2 py-3 font-semibold">
-          Designed and Developed by{" "}
+          Designed and Developed by
           <Button asChild variant={"link"} className="py-0 px-0 text-lg">
             <a
               href="https://github.com/m-shahzab"
