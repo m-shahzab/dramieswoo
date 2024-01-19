@@ -2,14 +2,11 @@ import * as z from "zod";
 import LoginSignup from "@/components/auth/LoginSignup";
 import { formSchema } from "@/lib/formSchema";
 import authService from "@/appwrite/auth";
-import { useAppDispatch } from "@/redux/hooks";
-import { useNavigate } from "react-router-dom";
-import { login } from "@/redux/slice/authSlice";
 import { useState } from "react";
+import { useGetCurrentUser } from "@/hooks/getUser";
 
 function Login() {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const { getCurrentUser } = useGetCurrentUser();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
@@ -17,19 +14,7 @@ function Login() {
       setLoading(true);
       const session = await authService.login(data);
       if (session) {
-        const userData = await authService.getCurrentUser();
-        if (userData) {
-          const userj = {
-            id: userData.$id,
-            name: userData.name,
-            registration: userData.registration,
-            email: userData.email,
-            phone: userData.phone,
-            profileUrl: userData.prefs.profileUrl,
-          };
-          dispatch(login(userj));
-          navigate("/");
-        }
+        getCurrentUser();
       }
       setLoading(false);
     } catch (error: any) {
