@@ -10,6 +10,7 @@ import { createPortal } from "react-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppDispatch } from "./redux/hooks";
+import Footer from "./components/home/Footer";
 
 function App() {
   console.log("app");
@@ -59,7 +60,7 @@ function App() {
         ) : (
           <>
             <Outlet />
-            {/*==show footer here==*/}
+            <Footer />
             {createPortal(
               <ToastContainer theme="dark" />,
               document.getElementById("Toastify") as HTMLElement
