@@ -35,4 +35,4 @@ function useFetchFavList() {
   return { fetchFavList };
 }
 
-export default useFetchFavList;
+export { useFetchFavList };

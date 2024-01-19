@@ -4,7 +4,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
 import { nextTwoMovies } from "@/redux/slice/movieSlice";
 import { memo, useEffect } from "react";
-import useFetchFavList from "@/hooks/fetchPosts";
+import { useFetchFavList } from "@/hooks/fetchFavorite";
 
 function Home() {
   console.log("home page");

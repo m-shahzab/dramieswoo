@@ -18,7 +18,7 @@ function App() {
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
   const { getCurrentUser } = useGetCurrentUser();
 
-  const isLogin = async () => {
+  const isLogin = () => {
     try {
       getCurrentUser();
     } catch (error) {

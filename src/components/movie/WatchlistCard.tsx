@@ -1,6 +1,5 @@
 import LazyImage from "@/utils/LazyImage";
 import { Link } from "react-router-dom";
-import { BsBookmarkX } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
 import { useAppSelector } from "@/redux/hooks";
 import Pagination from "@/lib/Pagination";

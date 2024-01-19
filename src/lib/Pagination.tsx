@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import useFetchPosts from "@/hooks/fetchPosts";
+import { useFetchFavList } from "@/hooks/fetchFavorite";
 import { useAppDispatch } from "@/redux/hooks";
 import { nextPage, prevPage } from "@/redux/slice/movieSlice";
 
@@ -17,7 +17,7 @@ function Pagination({
   totalPage: number | undefined;
 }) {
   const dispatch = useAppDispatch();
-  const { fetchFavList } = useFetchPosts();
+  const { fetchFavList } = useFetchFavList();
   const nextPate = () => {
     if (!forAppwrite) {
       dispatch(nextPage(currentPage + 1));
