@@ -1,12 +1,6 @@
 import { Button } from "../ui/button";
 import { LuBookmarkPlus } from "react-icons/lu";
-import { addToFavListHandler } from "@/lib/addToFavList";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import {
-  FavoriteListType,
-  addNewMovieToFavList,
-} from "@/redux/slice/movieSlice";
-import { toast } from "react-toastify";
+import { useAddToFavoriteList } from "@/hooks/addToFavoriteList";
 function AddToFavList({
   data,
 }: {
@@ -17,45 +11,14 @@ function AddToFavList({
     poster_path: string;
   };
 }) {
-  // console.log("AddToFavList::::::::");
-  const users = useAppSelector((state) => state.authSlice.users);
-  const favData = {
-    ...data,
-    user: users as User,
-  };
-  const dispatch = useAppDispatch();
-  const clickHandler = async () => {
-    console.log("clicked");
-    toast(`Adding to watchlist...`, {
-      position: "bottom-right",
-      autoClose: 5000,
-      theme: "dark",
-    });
-    const res = await addToFavListHandler(favData);
-    toast.dismiss();
-    toast(`${res.message}`, {
-      position: "bottom-right",
-      autoClose: 1500,
-      theme: "dark",
-    });
-    if (res?.message !== "Movie Already Added") {
-      const favoriteListData = res?.data as FavoriteListType;
-
-      dispatch(
-        addNewMovieToFavList({
-          ...favoriteListData,
-        })
-      );
-      console.log("need to be add to store");
-    }
-  };
+  const { addToFavoriteList } = useAddToFavoriteList();
 
   return (
     <Button
       title="Add to watchlist"
       variant={"ghost"}
       className="text-3xl p-0 hover:bg-transparent"
-      onClick={() => clickHandler()}
+      onClick={() => addToFavoriteList(data)}
     >
       <LuBookmarkPlus />
     </Button>

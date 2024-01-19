@@ -1,12 +1,21 @@
 import { TypographyH3 } from "@/components/ui/Typography/TypographyH3";
 import { TypographyP } from "@/components/ui/Typography/TypographyP";
 import { Button } from "@/components/ui/button";
+import { useAddToFavoriteList } from "@/hooks/addToFavoriteList";
 import LazyImage from "@/utils/LazyImage";
 import { LuPlus } from "react-icons/lu";
 
 function HeroNextMovies({ movie }: { movie: Results }) {
   const imgPoster = `https://image.tmdb.org/t/p/w342/${movie.poster_path}`;
   const imgBackdrop = `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`;
+  const { addToFavoriteList } = useAddToFavoriteList();
+  const favData = {
+    id: movie.id,
+    media_type: (movie.title ? "movie" : "tv") as "movie" | "tv",
+    title: movie.title || movie.name,
+    poster_path: movie.backdrop_path,
+  };
+
   return (
     <div className="@4xl:flex-row @4xl:items-end flex flex-col items-center">
       <div className="@4xl:w-[10rem] @4xl:h-60 w-60 bg-accent/50 relative rounded-lg overflow-hidden rounded-br-none group ">
@@ -37,7 +46,11 @@ function HeroNextMovies({ movie }: { movie: Results }) {
               {movie.overview.slice(0, 100) + "....."}
             </TypographyP>
             <div>
-              <Button className="uppercase" variant={"ghost"}>
+              <Button
+                className="uppercase"
+                variant={"ghost"}
+                onClick={() => addToFavoriteList(favData)}
+              >
                 <span className="text-primary text-lg mr-1">
                   <LuPlus />
                 </span>

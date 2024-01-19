@@ -14,6 +14,7 @@ import {
 import { motion } from "framer-motion";
 import AnimateTitle from "@/components/ui/Typography/AnimateTitle";
 import { memo } from "react";
+import { useAddToFavoriteList } from "@/hooks/addToFavoriteList";
 
 interface HeroContentProps {
   movieInfo: Movie;
@@ -27,6 +28,15 @@ function HeroContent({ movieInfo }: HeroContentProps) {
   const rating = (6.832).toFixed(1);
   const hours = Math.floor(movieInfo.runtime / 60);
   const mint = movieInfo.runtime % 60;
+  const { addToFavoriteList } = useAddToFavoriteList();
+
+  const favData = {
+    id: movieInfo.id,
+    media_type: (movieInfo.title ? "movie" : "tv") as "movie" | "tv",
+    title: movieInfo.title || movieInfo.name,
+    poster_path: movieInfo.backdrop_path,
+  };
+
   return (
     <motion.div
       className="@4xl:flex-row relative z-20 flex flex-col mt-16 h-[calc(100%_-_4rem)] space-y-8"
@@ -150,6 +160,7 @@ function HeroContent({ movieInfo }: HeroContentProps) {
             <Button
               className="rounded-2xl bg-card dark:text-inherit text-black"
               variant={"secondary"}
+              onClick={() => addToFavoriteList(favData)}
             >
               <LuPlus />
               Add List
