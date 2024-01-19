@@ -7,7 +7,7 @@ function Footer() {
       <Container>
         <TypographyP className="bg-card px-2 py-3 font-semibold">
           Designed and Developed by
-          <Button asChild variant={"link"} className="py-0 px-0 text-lg">
+          <Button asChild variant={"link"} className="py-0 px-2 text-lg ">
             <a
               href="https://github.com/m-shahzab"
               target="_blank"
