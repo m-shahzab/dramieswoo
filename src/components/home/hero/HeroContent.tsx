@@ -10,18 +10,18 @@ import {
   LuPlay,
   LuPlus,
 } from "react-icons/lu";
-
 import { motion } from "framer-motion";
 import AnimateTitle from "@/components/ui/Typography/AnimateTitle";
 import { memo } from "react";
 import { useAddToFavoriteList } from "@/hooks/addToFavoriteList";
+import PlayTrailerBtn from "@/components/movie/PlayTrailerBtn";
 
 interface HeroContentProps {
   movieInfo: Movie;
 }
 function HeroContent({ movieInfo }: HeroContentProps) {
-  const nextMovies = useAppSelector((state) => state.movieSlice.nextMovies);
-
+  console.log("hero Content");
+  // const nextMovies = useAppSelector((state) => state.movieSlice.nextMovies);
   const year = new Date(
     movieInfo?.release_date || movieInfo.first_air_date
   ).getFullYear();
@@ -153,10 +153,10 @@ function HeroContent({ movieInfo }: HeroContentProps) {
               stiffness: 200,
             }}
           >
-            <Button className="rounded-2xl mr-4">
+            <PlayTrailerBtn className="rounded-2xl mr-4">
               <LuPlay />
               Watch Trailer
-            </Button>
+            </PlayTrailerBtn>
             <Button
               className="rounded-2xl bg-card dark:text-inherit text-black"
               variant={"secondary"}
@@ -168,8 +168,8 @@ function HeroContent({ movieInfo }: HeroContentProps) {
           </motion.div>
         </>
       </div>
-
-      <div className="@4xl:items-end w-full flex flex-col">
+      <HeroNextMovies />
+      {/* <div className="@4xl:items-end w-full flex flex-col">
         <div className="@4xl:!flex-col @[700px]:flex-row flex flex-col justify-center items-center gap-4">
           {nextMovies?.map((movie, index) => {
             const HeroNextMoviesAni = {
@@ -199,7 +199,7 @@ function HeroContent({ movieInfo }: HeroContentProps) {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </motion.div>
   );
 }
