@@ -4,23 +4,19 @@ import { setTrailerOpen } from "@/redux/slice/movieSlice";
 import { createPortal } from "react-dom";
 import Trailer from "./Trailer";
 
-{
-  /* <Button
-              className="rounded-2xl mr-4"
-              onClick={() => dispatch(setTrailerOpen(true))}
-            >
-              <LuPlay />
-              Watch Trailer
-            </Button> */
-}
+type PlayTrailerBtnTypes = {
+  className: string;
+  children: React.ReactNode;
+  media_type: "movie" | "tv";
+  id: number;
+};
 
 function PlayTrailerBtn({
   className,
   children,
-}: {
-  className: string;
-  children: React.ReactNode;
-}) {
+  media_type,
+  id,
+}: PlayTrailerBtnTypes) {
   const dispatch = useAppDispatch();
   const isTrailerOpen = useAppSelector(
     (state) => state.movieSlice.isTrailerOpen
@@ -35,7 +31,7 @@ function PlayTrailerBtn({
       </Button>
       {isTrailerOpen &&
         createPortal(
-          <Trailer />,
+          <Trailer media_type={media_type} id={id} />,
           document.getElementById("popup__root") as HTMLElement
         )}
     </>

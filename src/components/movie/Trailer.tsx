@@ -1,25 +1,22 @@
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import { useGetMediaQuery } from "@/redux/rtk_query/api";
 import { setTrailerOpen } from "@/redux/slice/movieSlice";
-import { motion } from "framer-motion";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 
-function Trailer() {
-  console.log("Trailer");
-  const { media_type, id } = useParams();
+type TrailerTypes = {
+  media_type: "movie" | "tv";
+  id: number;
+};
+
+function Trailer({ media_type, id }: TrailerTypes) {
   const { data, isFetching } = useGetMediaQuery(`${media_type}/${id}/videos`);
 
   const getTrailerVideo = () => {
     if (data) {
-      const trailer = data.results.find((item) => item.type === "Trailer");
-
-      console.log(trailer);
-      return trailer;
+      return data.results.find((item) => item.type === "Trailer");
     }
   };
-  getTrailerVideo();
   const dispatch = useAppDispatch();
 
   const closeTrailer = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -28,17 +25,13 @@ function Trailer() {
       dispatch(setTrailerOpen(false));
     }
   };
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, []);
-
-  const trailerLoaded = (e: React.SyntheticEvent<HTMLIFrameElement, Event>) => {
-    // e.currentTarget.style.opacity = "1";
-    console.log("trailer loaded");
-  };
   return (
     <div
       className="@container backdrop-blur-md bg-heroOverlay/30 fixed inset-0 z-10"
@@ -59,7 +52,6 @@ function Trailer() {
                 src={`https://www.youtube.com/embed/${getTrailerVideo()?.key}`}
                 title="YouTube video player"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"
-                onLoad={(e) => trailerLoaded(e)}
               ></iframe>
             </div>
           )}

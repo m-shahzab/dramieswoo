@@ -21,7 +21,6 @@ interface HeroContentProps {
 }
 function HeroContent({ movieInfo }: HeroContentProps) {
   console.log("hero Content");
-  // const nextMovies = useAppSelector((state) => state.movieSlice.nextMovies);
   const year = new Date(
     movieInfo?.release_date || movieInfo.first_air_date
   ).getFullYear();
@@ -30,9 +29,10 @@ function HeroContent({ movieInfo }: HeroContentProps) {
   const mint = movieInfo.runtime % 60;
   const { addToFavoriteList } = useAddToFavoriteList();
 
+  const mediaType = (movieInfo.title ? "movie" : "tv") as "movie" | "tv";
   const favData = {
     id: movieInfo.id,
-    media_type: (movieInfo.title ? "movie" : "tv") as "movie" | "tv",
+    media_type: mediaType,
     title: movieInfo.title || movieInfo.name,
     poster_path: movieInfo.backdrop_path,
   };
@@ -153,7 +153,11 @@ function HeroContent({ movieInfo }: HeroContentProps) {
               stiffness: 200,
             }}
           >
-            <PlayTrailerBtn className="rounded-2xl mr-4">
+            <PlayTrailerBtn
+              className="rounded-2xl mr-4"
+              media_type={mediaType}
+              id={movieInfo.id}
+            >
               <LuPlay />
               Watch Trailer
             </PlayTrailerBtn>
@@ -169,37 +173,6 @@ function HeroContent({ movieInfo }: HeroContentProps) {
         </>
       </div>
       <HeroNextMovies />
-      {/* <div className="@4xl:items-end w-full flex flex-col">
-        <div className="@4xl:!flex-col @[700px]:flex-row flex flex-col justify-center items-center gap-4">
-          {nextMovies?.map((movie, index) => {
-            const HeroNextMoviesAni = {
-              hidden: {
-                opacity: 0,
-                x: 100,
-              },
-              visible: {
-                opacity: 1,
-                x: 0,
-                transition: {
-                  duration: 1,
-                  delay: 0.5 + index * 0.2,
-                },
-              },
-            };
-            return (
-              <motion.div
-                className="w-max"
-                key={uuidv4()}
-                variants={HeroNextMoviesAni}
-                initial={"hidden"}
-                animate={"visible"}
-              >
-                <HeroNextMovies movie={movie} />
-              </motion.div>
-            );
-          })}
-        </div>
-      </div> */}
     </motion.div>
   );
 }
