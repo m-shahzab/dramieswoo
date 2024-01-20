@@ -9,12 +9,14 @@ type PlayTrailerBtnTypes = {
   children: React.ReactNode;
   media_type: "movie" | "tv";
   id: number;
+  variantType?: "default" | "destructive";
 };
 
 function PlayTrailerBtn({
   className,
   children,
   media_type,
+  variantType = "default",
   id,
 }: PlayTrailerBtnTypes) {
   const dispatch = useAppDispatch();
@@ -24,6 +26,7 @@ function PlayTrailerBtn({
   return (
     <>
       <Button
+        variant={variantType}
         className={`${className}`}
         onClick={() => dispatch(setTrailerOpen(true))}
       >

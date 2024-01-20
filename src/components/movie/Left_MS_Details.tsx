@@ -1,5 +1,6 @@
 import LazyImage from "@/utils/LazyImage";
-import PlayTrailer from "./PlayTrailer";
+import PlayTrailerBtn from "./PlayTrailerBtn";
+import { useParams } from "react-router-dom";
 
 function Left_MS_Details({
   imgUrl,
@@ -11,6 +12,11 @@ function Left_MS_Details({
   movieTitle: string | undefined;
 }) {
   console.log("left details");
+  const { media_type, id } = useParams();
+
+  const mediaType = media_type as "movie" | "tv";
+  const ID = Number(id);
+
   return (
     <div
       id="leftDetails"
@@ -27,7 +33,14 @@ function Left_MS_Details({
         </div>
       </div>
       <div>
-        <PlayTrailer />
+        <PlayTrailerBtn
+          className="w-full rounded-none"
+          media_type={mediaType}
+          variantType="destructive"
+          id={ID}
+        >
+          Watch Trailer
+        </PlayTrailerBtn>
       </div>
     </div>
   );

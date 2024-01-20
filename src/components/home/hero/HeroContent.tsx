@@ -1,7 +1,6 @@
 import { TypographyP } from "@/components/ui/Typography/TypographyP";
 import HeroNextMovies from "./HeroNextMovies";
 import { Button } from "@/components/ui/button";
-import { useAppSelector } from "@/redux/hooks";
 import { v4 as uuidv4 } from "uuid";
 import {
   LuStar,
