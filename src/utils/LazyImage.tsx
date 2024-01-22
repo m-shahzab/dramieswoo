@@ -6,15 +6,18 @@ function LazyImage({
   imgPath,
   autoHeight = false,
   alt = "",
+  fullLoaded,
   className = "",
 }: {
   className: string;
   imgPath: string | undefined;
   autoHeight?: boolean;
+  fullLoaded?: () => void;
   alt: string | undefined;
 }) {
   const skeletonRef = useRef<HTMLDivElement>(null);
   const onLoad = (event: Event) => {
+    if (fullLoaded) fullLoaded();
     (skeletonRef.current as HTMLDivElement).remove();
     const target = event.target as HTMLImageElement;
     const parent = target.parentElement?.parentElement;
