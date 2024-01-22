@@ -1,22 +1,30 @@
 import { Params, useParams } from "react-router-dom";
-import TopSection from "./TopSection";
+import { LuPlus } from "react-icons/lu";
 import { useGetInfoQuery } from "@/redux/rtk_query/api";
 import { TypographyP } from "../ui/Typography/TypographyP";
 import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import AnimateTitle from "../ui/Typography/AnimateTitle";
 import { Button } from "../ui/button";
+import { useAddToFavoriteList } from "@/hooks/addToFavoriteList";
 
 function Right_MS_Details({ className }: { className?: string }) {
   const { media_type, id } = useParams<Params>();
   const { data: movieData } = useGetInfoQuery(`${media_type}/${id}`);
+  const { addToFavoriteList } = useAddToFavoriteList();
 
   const year =
     movieData?.release_date?.split("-")[0] ||
     movieData?.first_air_date?.split("-")[0];
   const title = movieData?.title || movieData?.name;
-
   const shortTitle =
     (title as string).length > 10 ? title?.slice(0, 10) + "..." : title;
+  const mediaType = (movieData?.title ? "movie" : "tv") as "movie" | "tv";
+  const favData = {
+    id: Number(movieData?.id),
+    media_type: mediaType,
+    title: String(title),
+    poster_path: String(movieData?.backdrop_path),
+  };
 
   return (
     <div id="rightDetails" className={`p-1 ${className}`}>
@@ -30,8 +38,12 @@ function Right_MS_Details({ className }: { className?: string }) {
           {movieData?.tagline}
         </TypographyP>
       </div>
-      <Button variant={"destructive"} title="Add to watchlist">
-        Watchlist
+      <Button
+        variant={"destructive"}
+        onClick={() => addToFavoriteList(favData)}
+      >
+        <LuPlus />
+        Add List
       </Button>
     </div>
   );
