@@ -10,7 +10,6 @@ type useGetCurrentUser = {
 function useGetCurrentUser(): useGetCurrentUser {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const getCurrentUser = async () => {
     const userData = await appwriteAuth.getCurrentUser();
     if (userData) {
@@ -23,7 +22,6 @@ function useGetCurrentUser(): useGetCurrentUser {
         profileUrl: userData.prefs.profileUrl,
       };
       dispatch(login(userj));
-      navigate("/");
     } else {
       dispatch(logout());
       navigate("/login");
