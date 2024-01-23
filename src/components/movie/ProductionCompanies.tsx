@@ -7,7 +7,6 @@ function ProductionCompanies() {
   const { media_type, id } = useParams();
   const { data: movieInfo } = useGetInfoQuery(`${media_type}/${id}`);
   const movieInfoAsMovie = movieInfo as Movie;
-  console.log(movieInfoAsMovie.production_companies);
   return (
     <div>
       <TypographyH3 className="text-center text-xl my-2">

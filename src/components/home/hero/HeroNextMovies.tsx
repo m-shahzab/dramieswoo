@@ -6,6 +6,7 @@ import { useAppSelector } from "@/redux/hooks";
 import LazyImage from "@/utils/LazyImage";
 import { motion } from "framer-motion";
 import { LuPlus } from "react-icons/lu";
+import { v4 as uuidv4 } from "uuid";
 
 function RenderMovies() {
   const nextMovies = useAppSelector((state) => state.movieSlice.nextMovies);
@@ -37,7 +38,7 @@ function RenderMovies() {
         return (
           <motion.div
             className="w-max"
-            key={movie.name + index}
+            key={uuidv4()}
             variants={HeroNextMoviesAni}
             initial={"hidden"}
             animate={"visible"}
@@ -95,7 +96,7 @@ function RenderMovies() {
 function HeroNextMovies() {
   return (
     <div className="@4xl:items-end w-full flex flex-col">
-      <div className="@4xl:!flex-col @[700px]:flex-row flex flex-col justify-center items-center gap-4">
+      <div className="@4xl:!flex-col @4xl:pb-4 @[700px]:flex-row flex flex-col justify-center items-center gap-4">
         <RenderMovies />
       </div>
     </div>

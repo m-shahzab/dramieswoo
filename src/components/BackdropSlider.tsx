@@ -8,6 +8,7 @@ import { EffectFade, Autoplay } from "swiper/modules";
 import { useState } from "react";
 
 export default function BackdropSlider({ className }: { className?: string }) {
+  const delayNum_Ms = 3000;
   const { media_type, id } = useParams();
   const { data } = useGetMediaQuery(`${media_type}/${id}/images`);
   const imgUrl = "https://image.tmdb.org/t/p/w1280";
@@ -20,7 +21,7 @@ export default function BackdropSlider({ className }: { className?: string }) {
         effect="fade"
         modules={[EffectFade, Autoplay]}
         autoplay={{
-          delay: 2000,
+          delay: delayNum_Ms,
           disableOnInteraction: false,
           waitForTransition: true,
           pauseOnMouseEnter: true,
@@ -39,7 +40,7 @@ export default function BackdropSlider({ className }: { className?: string }) {
         className="mySwiper h-full"
       >
         {copyBackdrop.map((backdrop) => (
-          <SwiperSlide>
+          <SwiperSlide key={backdrop.file_path}>
             <LazyImage
               imgPath={imgUrl + backdrop.file_path}
               alt="backdrop photo"
