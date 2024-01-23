@@ -14,8 +14,7 @@ function Home() {
   const { fetchFavList } = useFetchFavList();
   fetchFavList({});
   const dispatch = useAppDispatch();
-  // const randamNum = Math.floor(Math.random() * (17 - 0 + 1) + 0);
-  const randamNum = 3;
+  const randamNum = Math.floor(Math.random() * (17 - 0 + 1) + 0);
   const copyData = [...(data?.results ?? [])];
   const next2Movie = copyData.splice(randamNum + 1, 2);
   const isMovieOrTv =
