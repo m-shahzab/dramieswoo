@@ -5,7 +5,8 @@ import { useAddToFavoriteList } from "@/hooks/addToFavoriteList";
 import { useAppSelector } from "@/redux/hooks";
 import LazyImage from "@/utils/LazyImage";
 import { motion } from "framer-motion";
-import { LuPlus } from "react-icons/lu";
+import { LuInfo, LuPlus } from "react-icons/lu";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 function RenderMovies() {
@@ -53,22 +54,22 @@ function RenderMovies() {
                   />
                 </div>
               </div>
-              <div className="h-[11.5rem] w-[18rem] @4xl:translate-y-0 -translate-y-8 shadow-[0_-18px_15px_5px_rgba(0,0,0,0.5)] @4xl:shadow-none relative">
-                <div className=" w-full h-full relative overflow-hidden">
-                  <div className="h-full transition ease duration-200">
+              <div className="w-[18rem] @4xl:translate-y-0 -translate-y-8 shadow-[0_-18px_15px_5px_rgba(0,0,0,0.5)] @4xl:shadow-none">
+                <div className="relative overflow-hidden">
+                  <div className="absolute  inset-0 transition ease duration-200 z-[-1]">
                     <LazyImage
                       className=""
                       imgPath={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
                       alt={movie.name || movie.title}
                     />
                   </div>
-                  <div className="absolute inset-0 bg-heroOverlay/60"></div>
-                  <div className="absolute inset-0 p-2 ">
+                  <div className="z-[-1] absolute inset-0 bg-heroOverlay/60" />
+                  <div className=" p-2 flex flex-col justify-between">
                     <TypographyH3 className="truncate">
                       {movie.title ?? movie.name}
                     </TypographyH3>
                     <TypographyP className="leading-6">
-                      {movie.overview.slice(0, 100) + "....."}
+                      {movie.overview.substring(0, 100) + "....."}
                     </TypographyP>
                     <div>
                       <Button
@@ -80,6 +81,19 @@ function RenderMovies() {
                           <LuPlus />
                         </span>
                         add list
+                      </Button>
+                      <Button
+                        className="dark:text-inherit  text-white rounded-2xl"
+                        asChild
+                        variant={"link"}
+                      >
+                        <Link
+                          to={`${favData.media_type}/${favData.id}/overview`}
+                          className=""
+                        >
+                          <LuInfo className="mr-1" />
+                          View Info...
+                        </Link>
                       </Button>
                     </div>
                   </div>

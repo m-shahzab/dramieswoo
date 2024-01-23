@@ -8,12 +8,14 @@ import {
   LuCalendarDays,
   LuPlay,
   LuPlus,
+  LuInfo,
 } from "react-icons/lu";
 import { motion } from "framer-motion";
 import AnimateTitle from "@/components/ui/Typography/AnimateTitle";
 import { memo } from "react";
 import { useAddToFavoriteList } from "@/hooks/addToFavoriteList";
 import PlayTrailerBtn from "@/components/movie/PlayTrailerBtn";
+import { Link } from "react-router-dom";
 
 interface HeroContentProps {
   movieInfo: Movie;
@@ -143,7 +145,7 @@ function HeroContent({ movieInfo }: HeroContentProps) {
               })}
           </TypographyP>
           <motion.div
-            className="flex justify-start"
+            className="flex justify-start flex-wrap gap-2"
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -153,7 +155,7 @@ function HeroContent({ movieInfo }: HeroContentProps) {
             }}
           >
             <PlayTrailerBtn
-              className="rounded-2xl mr-4"
+              className="rounded-2xl"
               media_type={mediaType}
               id={movieInfo.id}
             >
@@ -167,6 +169,19 @@ function HeroContent({ movieInfo }: HeroContentProps) {
             >
               <LuPlus />
               Add List
+            </Button>
+            <Button
+              className="dark:text-inherit  text-white rounded-2xl bg-accent"
+              asChild
+              variant={"link"}
+            >
+              <Link
+                to={`${favData.media_type}/${favData.id}/overview`}
+                className=""
+              >
+                <LuInfo className="mr-1" />
+                View Info...
+              </Link>
             </Button>
           </motion.div>
         </>
