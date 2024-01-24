@@ -11,24 +11,18 @@ import Footer from "./components/home/Footer";
 import { useGetCurrentUser } from "./hooks/getUser";
 
 function App() {
-  console.log("app");
+  // console.log("app");
   const { isLoading } = useGeTtrendingMoviesQuery(
     "trending/all/week?language=en-US"
   );
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
   const { getCurrentUser } = useGetCurrentUser();
 
-  const isLogin = () => {
-    try {
-      getCurrentUser();
-    } catch (error) {
-      console.log(error, "error from app");
-    }
-  };
-
   useEffect(() => {
-    isLogin();
-  }, []);
+    if (!isLoading) {
+      getCurrentUser();
+    }
+  }, [isLoading]);
   return (
     <>
       {isLgn && <NavBar />}

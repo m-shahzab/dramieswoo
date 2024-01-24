@@ -1,6 +1,7 @@
 import Container from "@/components/container/Container";
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
 import MainSlider from "@/components/MainSlider";
+import { memo } from "react";
 
 function Main() {
   const { data: allData } = useGeTtrendingMoviesQuery(
@@ -59,4 +60,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default memo(Main);

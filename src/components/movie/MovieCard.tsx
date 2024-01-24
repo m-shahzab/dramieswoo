@@ -2,6 +2,7 @@ import LazyImage from "@/utils/LazyImage";
 import { Link } from "react-router-dom";
 import AddToFavList from "./AddToFavListBtn";
 import React from "react";
+import { LuBookmarkPlus } from "react-icons/lu";
 
 function MovieCard({
   movie,
@@ -35,7 +36,15 @@ function MovieCard({
           />
         </div>
         <div className="bg-black/50 absolute inset-0 opacity-0 group-hover:opacity-100 flex justify-end transition ease-in duration-200">
-          {!person && <AddToFavList data={favData} />}
+          {!person && (
+            <AddToFavList
+              data={favData}
+              className="text-3xl p-0 hover:bg-transparent"
+              variant="ghost"
+            >
+              <LuBookmarkPlus />
+            </AddToFavList>
+          )}
         </div>
       </div>
       <div className="bg-accent h-full">

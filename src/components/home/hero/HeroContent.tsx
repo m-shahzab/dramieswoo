@@ -13,9 +13,9 @@ import {
 import { motion } from "framer-motion";
 import AnimateTitle from "@/components/ui/Typography/AnimateTitle";
 import { memo } from "react";
-import { useAddToFavoriteList } from "@/hooks/addToFavoriteList";
 import PlayTrailerBtn from "@/components/movie/PlayTrailerBtn";
 import { Link } from "react-router-dom";
+import AddToFavList from "@/components/movie/AddToFavListBtn";
 
 interface HeroContentProps {
   movieInfo: Movie;
@@ -28,9 +28,10 @@ function HeroContent({ movieInfo }: HeroContentProps) {
   const rating = (6.832).toFixed(1);
   const hours = Math.floor(movieInfo.runtime / 60);
   const mint = movieInfo.runtime % 60;
-  const { addToFavoriteList } = useAddToFavoriteList();
+  // const { addToFavoriteList } = useAddToFavoriteList();
 
   const mediaType = (movieInfo.title ? "movie" : "tv") as "movie" | "tv";
+
   const favData = {
     id: movieInfo.id,
     media_type: mediaType,
@@ -162,14 +163,14 @@ function HeroContent({ movieInfo }: HeroContentProps) {
               <LuPlay />
               Watch Trailer
             </PlayTrailerBtn>
-            <Button
+            <AddToFavList
               className="rounded-2xl bg-card dark:text-inherit text-black"
-              variant={"secondary"}
-              onClick={() => addToFavoriteList(favData)}
+              variant="secondary"
+              data={favData}
             >
-              <LuPlus />
+              <LuPlus className="mr-1" />
               Add List
-            </Button>
+            </AddToFavList>
             <Button
               className="dark:text-inherit  text-white rounded-2xl bg-accent"
               asChild

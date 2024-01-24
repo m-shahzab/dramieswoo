@@ -17,7 +17,7 @@ function Pagination({
   totalPage: number | undefined;
 }) {
   const dispatch = useAppDispatch();
-  const { fetchFavList } = useFetchFavList();
+  // const { fetchFavList } = useFetchFavList();
   const nextPate = () => {
     if (!forAppwrite) {
       dispatch(nextPage(currentPage + 1));

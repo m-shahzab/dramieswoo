@@ -1,20 +1,23 @@
 import Hero from "@/components/home/hero/Hero";
 import Main from "@/components/home/main/Main";
+import { useFetchFavList } from "@/hooks/fetchFavorite";
 import { useAppDispatch } from "@/redux/hooks";
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
 import { nextTwoMovies } from "@/redux/slice/movieSlice";
-import { memo, useEffect } from "react";
-import { useFetchFavList } from "@/hooks/fetchFavorite";
+import { memo, useEffect, useMemo } from "react";
 
 function Home() {
-  console.log("home page");
   const { data } = useGeTtrendingMoviesQuery(
     "trending/all/week?language=en-US"
   );
   const { fetchFavList } = useFetchFavList();
   fetchFavList({});
   const dispatch = useAppDispatch();
-  const randamNum = Math.floor(Math.random() * (17 - 0 + 1) + 0);
+  const randamNum = useMemo(
+    () => Math.floor(Math.random() * (17 - 0 + 1) + 0),
+    []
+  );
+
   const copyData = [...(data?.results ?? [])];
   const next2Movie = copyData.splice(randamNum + 1, 2);
   const isMovieOrTv =
@@ -22,11 +25,13 @@ function Home() {
   const ID = data?.results[randamNum]?.id; // get id of random movie or tv
   const contentInfo = `${isMovieOrTv}/${ID}`; // get movieORtv info
   useEffect(() => {
-    dispatch(nextTwoMovies({ nextMovies: next2Movie }));
+    if (next2Movie) {
+      dispatch(nextTwoMovies({ nextMovies: next2Movie }));
+    }
   }, []);
   return (
     <>
-      {data && (
+      {next2Movie && (
         <>
           <div className="add_fix_height relative">
             <Hero contentInfo={contentInfo} />
