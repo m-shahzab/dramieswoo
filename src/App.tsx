@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/home/Footer";
 import { useGetCurrentUser } from "./hooks/getUser";
 import { useFetchFavList } from "./hooks/fetchFavorite";
+import BackToTopBtn from "./components/BackToTopBtn";
 
 function App() {
   // console.log("app");
@@ -49,6 +50,8 @@ function App() {
               <ToastContainer theme="dark" />,
               document.getElementById("Toastify") as HTMLElement
             )}
+            {isLgn &&
+              createPortal(<BackToTopBtn />, document.body as HTMLElement)}
           </>
         )}
       </div>
