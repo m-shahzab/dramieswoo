@@ -12,6 +12,7 @@ import { useGetCurrentUser } from "./hooks/getUser";
 
 function App() {
   // console.log("app");
+  document.documentElement.scrollTop = 0;
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
   const { isLoading } = useGeTtrendingMoviesQuery(
     "trending/all/week?language=en-US",
@@ -21,10 +22,10 @@ function App() {
   );
   const { getCurrentUser } = useGetCurrentUser();
   useEffect(() => {
-    if (!isLoading) {
+    if (isLgn) {
       getCurrentUser();
     }
-  }, [isLoading]);
+  }, []);
   return (
     <>
       {isLgn && <NavBar />}
