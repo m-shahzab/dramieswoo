@@ -12,12 +12,14 @@ import { useGetCurrentUser } from "./hooks/getUser";
 
 function App() {
   // console.log("app");
-  const { isLoading } = useGeTtrendingMoviesQuery(
-    "trending/all/week?language=en-US"
-  );
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
+  const { isLoading } = useGeTtrendingMoviesQuery(
+    "trending/all/week?language=en-US",
+    {
+      skip: !isLgn,
+    }
+  );
   const { getCurrentUser } = useGetCurrentUser();
-
   useEffect(() => {
     if (!isLoading) {
       getCurrentUser();
