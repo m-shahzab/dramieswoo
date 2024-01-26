@@ -1,6 +1,5 @@
 import Hero from "@/components/home/hero/Hero";
 import Main from "@/components/home/main/Main";
-import { useFetchFavList } from "@/hooks/fetchFavorite";
 import { useAppDispatch } from "@/redux/hooks";
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
 import { nextTwoMovies } from "@/redux/slice/movieSlice";
@@ -10,8 +9,6 @@ function Home() {
   const { data } = useGeTtrendingMoviesQuery(
     "trending/all/week?language=en-US"
   );
-  const { fetchFavList } = useFetchFavList();
-  fetchFavList({});
   const dispatch = useAppDispatch();
   const randamNum = useMemo(
     () => Math.floor(Math.random() * (17 - 0 + 1) + 0),

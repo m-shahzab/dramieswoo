@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/home/Footer";
 import { useGetCurrentUser } from "./hooks/getUser";
+import { useFetchFavList } from "./hooks/fetchFavorite";
 
 function App() {
   // console.log("app");
@@ -21,11 +22,15 @@ function App() {
     }
   );
   const { getCurrentUser } = useGetCurrentUser();
+  const { fetchFavList } = useFetchFavList();
   useEffect(() => {
     if (isLgn) {
       getCurrentUser();
     }
   }, []);
+  useEffect(() => {
+    if (isLgn) fetchFavList({});
+  }, [fetchFavList]);
   return (
     <>
       {isLgn && <NavBar />}
