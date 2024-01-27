@@ -47,6 +47,7 @@ function SearchP() {
     },
   ];
 
+  console.log(selectedCheckBoxId, "from serhcppppppp");
   return (
     <Container className="mt-16 pt-4">
       <motion.div

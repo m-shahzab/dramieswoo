@@ -13,7 +13,6 @@ const ShowSearchData = memo(function ShowSearchData({
   person: boolean;
   loadingRef: React.MutableRefObject<HTMLDivElement | null>;
 }) {
-  console.log("ShowSearchData: called", value);
   const { data, isFetching } = useGetSearchQuery(
     `search/${checkBoxId}?query=${value}`,
     {
@@ -30,7 +29,6 @@ const ShowSearchData = memo(function ShowSearchData({
       </div>
     );
   }
-
   return (
     <>
       {!isFetching && (
@@ -40,6 +38,7 @@ const ShowSearchData = memo(function ShowSearchData({
           </p>
           <div className="grid gap-2 gap-y-6 @xs:grid-cols-2 @lg:grid-cols-3 @2xl:grid-cols-4 @4xl:grid-cols-5 @5xl:grid-cols-6">
             {data?.results.map((movie) => {
+              console.log(movie, "from mapp😀😀😀😀😀😀😀");
               return (
                 <MovieCard
                   className="group h-max"
@@ -48,7 +47,9 @@ const ShowSearchData = memo(function ShowSearchData({
                   person={person}
                   linkPath={`/${
                     checkBoxId === "multi" ? movie.media_type : checkBoxId
-                  }/${movie.id}/overview`}
+                  }/${movie.id}${
+                    movie.media_type === "person" ? "" : "/overview"
+                  }`}
                 />
               );
             })}

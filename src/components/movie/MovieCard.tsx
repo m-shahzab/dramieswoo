@@ -48,10 +48,7 @@ function MovieCard({
         </div>
       </div>
       <div className="bg-accent h-full">
-        <Link
-          to={`${person ? `people/${movie.id}` : linkPath}`}
-          relative="route"
-        >
+        <Link to={`${person ? `/person/${movie.id}` : linkPath}`}>
           <div className="p-2">
             <p className="text-lg truncate">{title}</p>
             {!person && (

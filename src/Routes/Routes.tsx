@@ -111,7 +111,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/people/:id/",
+        path: "/person/:id/",
         element: (
           <PrivateRoute>
             <PeopleP />
@@ -128,48 +128,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: "/login",
-  //   element: (
-  //     <PublicRoute>
-  //       <LoginP />
-  //     </PublicRoute>
-  //   ),
-  // },
-  // {
-  //   path: "/signup",
-  //   element: (
-  //     <PublicRoute>
-  //       <SignupP />
-  //     </PublicRoute>
-  //   ),
-  // },
-  // {
-  //   path: "/home",
-  //   element: (
-  //     <PrivateRoute>
-  //       <HomeP />
-  //     </PrivateRoute>
-  //   ),
-  // },
-  // {
-  //   path: "/profile",
-  //   element: (
-  //     <PrivateRoute>
-  //       <ProfileP />
-  //     </PrivateRoute>
-  //   ),
-  // },
 ]);
-
-// [
-//   {
-//     path: "/",
-//     element: <App />,
-//     children: [
-//       { path: "", element: <div>Home</div> },
-//       { path: "signup", element: <div>signup</div> },
-//       { path: "about", element: <div>About</div> },
-//     ],
-//   },
-// ]
