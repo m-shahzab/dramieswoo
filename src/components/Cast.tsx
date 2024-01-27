@@ -17,7 +17,7 @@ export default function CastCard({ data }: { data: CastandCrewMember }) {
       >
         <Link
           className="block truncate font-work-sans text-sm font-medium hover:underline"
-          to={`/people/${data.id}`}
+          to={`/person/${data.id}`}
         >
           {data.name}
         </Link>
