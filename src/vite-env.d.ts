@@ -1,9 +1,9 @@
 /// <reference types="vite/client" />
 
-interface GenreTpes {
+type GenreTpes = {
   id: number;
   name: string;
-}
+};
 
 interface Results {
   adult: boolean;
@@ -121,11 +121,30 @@ interface ProductionCompanies {
   origin_country: string;
 }
 
+type Season = {
+  air_date: string;
+  episode_count: number;
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string;
+  season_number: number;
+  vote_average: number;
+};
+type SpokenLag = {
+  english_name: string;
+  iso_639_1: string;
+  name: string;
+};
+
 interface Movie extends Results {
   tagline: string;
   runtime: number;
   production_companies: ProductionCompanies[];
   genres: GenreTpes[];
+  seasons: Season[];
+  number_of_episodes: number;
+  spoken_languages: SpokenLag[];
 }
 
 interface User {

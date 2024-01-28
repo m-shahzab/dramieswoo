@@ -11,7 +11,6 @@ function Movies_Series_DetailsUi() {
 
   const imgUrl = `https://image.tmdb.org/t/p/w342${movieInfo?.poster_path}
   `;
-
   return (
     <div>
       <TopSection imgUrl={imgUrl} title={movieInfo?.title || movieInfo?.name} />
