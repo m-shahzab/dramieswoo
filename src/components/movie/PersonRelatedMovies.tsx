@@ -47,7 +47,7 @@ function PersonRelatedMovies() {
         <InfiniteScroll
           dataLength={data.results.length}
           next={fetchMoreData}
-          hasMore={data.total_results !== data.results.length}
+          hasMore={data.total_results >= data.results.length}
           loader={<h4>Loading...</h4>}
           endMessage={
             <p className="text-center my-3">
