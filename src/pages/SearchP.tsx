@@ -10,6 +10,7 @@ import { useDebounce } from "use-debounce";
 import ShowSearchData from "@/components/ShowSearchData";
 import { BeatLoader } from "react-spinners";
 function SearchP() {
+  console.log("search page");
   const [query, setQuery] = useState("");
   const [debouncedText, fn] = useDebounce(query, 800);
   const [showSearchData, setShowSearchData] = useState(false);
@@ -46,8 +47,6 @@ function SearchP() {
       label: "Person",
     },
   ];
-
-  console.log(selectedCheckBoxId, "from serhcppppppp");
   return (
     <Container className="mt-16 pt-4">
       <motion.div

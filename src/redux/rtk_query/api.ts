@@ -32,8 +32,39 @@ export const movieApi = createApi({
       query: (pageNo) => `movies?page=${pageNo}`,
     }),
 
-    getSearch: builder.query<Movies, string>({
-      query: (query) => query,
+    searchQuery: builder.query<
+      Movies,
+      {
+        page: number;
+        checkBoxId: string;
+        value: string;
+      }
+    >({
+      query: ({ checkBoxId, page, value }) => {
+        return `search/${checkBoxId}?query=${value}&page=${page}`;
+      },
+
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        return `${endpointName}(${queryArgs.value})`;
+      },
+
+      merge: (currentCache, newItems) => {
+        const newMovies = newItems.results.filter(
+          (newMovie) =>
+            !currentCache.results.some(
+              (cachedMovie) => cachedMovie.id === newMovie.id
+            )
+        );
+        currentCache.results.push(...newMovies);
+      },
+
+      // Refetch when the value or page arg changes
+      forceRefetch: ({ currentArg, previousArg }) => {
+        return (
+          currentArg?.value !== previousArg?.value ||
+          currentArg?.page !== previousArg?.page
+        );
+      },
     }),
 
     //get media('trailer,backdrops,posters') for movies and series
@@ -109,5 +140,5 @@ export const {
   useGetFavoriteListQuery,
   useGetMediaQuery,
   usePaginationQuery,
-  useGetSearchQuery,
+  useSearchQueryQuery,
 } = movieApi;
