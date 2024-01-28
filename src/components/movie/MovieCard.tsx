@@ -36,7 +36,7 @@ function MovieCard({
           />
         </div>
         <div className="bg-black/50 absolute inset-0 opacity-0 group-hover:opacity-100 flex justify-end transition ease-in duration-200">
-          {!person && (
+          {!person && movie.media_type !== "person" && (
             <AddToFavList
               data={favData}
               className="text-3xl p-0 hover:bg-transparent"
