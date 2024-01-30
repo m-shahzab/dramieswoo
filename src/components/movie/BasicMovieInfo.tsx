@@ -20,6 +20,11 @@ function BasicMovieInfo() {
     name: mediaType.name,
     path: `/${media_type}/${id}/media/${mediaType.pathSegment}`,
   }));
+  const filteredSeasonsList =
+    movieInfo?.seasons &&
+    movieInfo.seasons.filter((s) => {
+      return s.name !== "Specials";
+    });
   return (
     <>
       <TypographyH3 className="text-center text-xl">Movie Details</TypographyH3>
@@ -29,11 +34,11 @@ function BasicMovieInfo() {
           {movieInfo?.title || movieInfo?.name}
         </span>
       </TypographyH2>
-      {movieInfo?.seasons && movieInfo.seasons && (
+      {filteredSeasonsList && filteredSeasonsList && (
         <TypographyH2 className="m-0 text-lg border-none">
           <span className="mr-1">No. of seasons :</span>
           <span className="text-gray-400 leading-[1] p-1 rounded uppercase">
-            {movieInfo.seasons.length}
+            {filteredSeasonsList.length}
           </span>
         </TypographyH2>
       )}
