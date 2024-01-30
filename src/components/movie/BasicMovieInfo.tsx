@@ -3,6 +3,9 @@ import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import { Link, useParams } from "react-router-dom";
 import { useGetInfoQuery } from "@/redux/rtk_query/api";
 import { Button } from "../ui/button";
+import AllSeasonsSlider from "./AllSeasonsSlider";
+import AnimateTitle from "../ui/Typography/AnimateTitle";
+import { motion } from "framer-motion";
 
 function BasicMovieInfo() {
   const { media_type, id } = useParams();
@@ -10,6 +13,7 @@ function BasicMovieInfo() {
   const isMovie = media_type === "movie";
   const hours = Math.floor(Number(movieInfo?.runtime) / 60);
   const mint = Number(movieInfo?.runtime) % 60;
+  const title = String(movieInfo?.title || movieInfo?.name);
   const mediaTypes = [
     { name: "Backdrop", pathSegment: "backdrops" },
     { name: "Logos", pathSegment: "logos" },
@@ -26,13 +30,15 @@ function BasicMovieInfo() {
       return s.name !== "Specials";
     });
   return (
-    <>
-      <TypographyH3 className="text-center text-xl">Movie Details</TypographyH3>
+    <motion.div initial="initial" whileHover="whileHover">
+      <TypographyH2 className="mb-4 pb-3 relative before:absolute before:left-0 before:bottom-0 before:w-9 before:h-1 before:bg-primary before:rounded-sm before:z-[-1] flex items-center justify-between">
+        <AnimateTitle
+          text={`${isMovie ? "Movie" : "Series"} Details`}
+        ></AnimateTitle>
+      </TypographyH2>
       <TypographyH2 className="m-0 text-lg border-none">
         <span className="mr-1">Title :</span>
-        <span className="text-gray-400 leading-[1] p-1 uppercase">
-          {movieInfo?.title || movieInfo?.name}
-        </span>
+        <span className="text-gray-400 leading-[1] p-1 uppercase">{title}</span>
       </TypographyH2>
       {filteredSeasonsList && filteredSeasonsList && (
         <TypographyH2 className="m-0 text-lg border-none">
@@ -128,7 +134,14 @@ function BasicMovieInfo() {
           ))}
         </div>
       </TypographyH2>
-    </>
+      <hr />
+      {!isMovie && (
+        <AllSeasonsSlider
+          titleLable={title}
+          seasonsData={filteredSeasonsList as Season[]}
+        />
+      )}
+    </motion.div>
   );
 }
 

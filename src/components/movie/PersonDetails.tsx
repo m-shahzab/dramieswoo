@@ -6,7 +6,7 @@ import AnimateTitle from "../ui/Typography/AnimateTitle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { motion } from "framer-motion";
 
-const months = [
+export const months = [
   "Jan",
   "Feb",
   "Mar",

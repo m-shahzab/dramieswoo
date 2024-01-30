@@ -6,7 +6,7 @@ import {
   useGetMediaQuery,
   useGetRecomendationsQuery,
 } from "@/redux/rtk_query/api";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 
 function MoviesDetailsP() {
   const { media_type, id } = useParams();
@@ -24,7 +24,10 @@ function MoviesDetailsP() {
           <Skeleton className="h-full animate-pulse" />
         </div>
       ) : (
-        <Movies_Series_DetailsUi />
+        <>
+          
+          <Movies_Series_DetailsUi />
+        </>
       )}
     </Container>
   );

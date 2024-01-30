@@ -95,6 +95,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/:media_type/:id/season/:season_number",
+        element: (
+          <PrivateRoute>
+            <div>Test</div>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "/:media_type/:id/overview/cast-crew",
         element: (
           <PrivateRoute>

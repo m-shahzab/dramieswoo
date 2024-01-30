@@ -1,17 +1,19 @@
 import LazyImage from "@/utils/LazyImage";
-import { TypographyH3 } from "../ui/Typography/TypographyH3";
 import { useParams } from "react-router-dom";
 import { useGetInfoQuery } from "@/redux/rtk_query/api";
+import { TypographyH2 } from "../ui/Typography/TypographyH2";
+import AnimateTitle from "../ui/Typography/AnimateTitle";
+import { motion } from "framer-motion";
 
 function ProductionCompanies() {
   const { media_type, id } = useParams();
   const { data: movieInfo } = useGetInfoQuery(`${media_type}/${id}`);
   const movieInfoAsMovie = movieInfo as Movie;
   return (
-    <div>
-      <TypographyH3 className="text-center text-xl my-2">
-        Production Companies
-      </TypographyH3>
+    <motion.div initial="initial" whileHover="whileHover">
+      <TypographyH2 className="mb-4 pb-3 relative before:absolute before:left-0 before:bottom-0 before:w-9 before:h-1 before:bg-primary before:rounded-sm before:z-[-1] flex items-center justify-between">
+        <AnimateTitle text="Production Companies"></AnimateTitle>
+      </TypographyH2>
       <div className="grid gap-1 grid-cols-[repeat(auto-fill,minmax(14rem,1fr))]">
         {movieInfoAsMovie.production_companies.map((company) => (
           <div
@@ -34,7 +36,7 @@ function ProductionCompanies() {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

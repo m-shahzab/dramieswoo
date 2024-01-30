@@ -10,12 +10,14 @@ import SearchP from "./SearchP";
 import Cast_CrewP from "./Cast_CrewP";
 import MovieMediaP from "./MovieMediaP";
 import WatchListP from "./WatchListP";
+import AllSeasonsListP from "./AllSeasonsListP";
 
 export {
   HomeP,
   MoviesDetailsP,
   ProfileP,
   LoginP,
+  AllSeasonsListP,
   SignupP,
   WatchListP,
   SearchP,
