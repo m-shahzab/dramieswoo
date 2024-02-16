@@ -127,6 +127,12 @@ export const movieApi = createApi({
         return { data: data };
       },
     }),
+
+    getSeasonsDetails: builder.query<Season, string>({
+      query: (query) => {
+        return query;
+      },
+    }),
   }),
 });
 

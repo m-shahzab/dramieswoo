@@ -10,6 +10,7 @@ import {
   SearchP,
   Cast_CrewP,
   MovieMediaP,
+  SeasonsDetailsP,
   PeopleP,
   SeriesP,
 } from "../pages";
@@ -98,7 +99,7 @@ export const router = createBrowserRouter([
         path: "/:media_type/:id/season/:season_number",
         element: (
           <PrivateRoute>
-            <div>Test</div>
+            <SeasonsDetailsP />
           </PrivateRoute>
         ),
       },

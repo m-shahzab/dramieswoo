@@ -16,7 +16,6 @@ function AllSeasonsSlider({
   titleLable: string;
 }) {
   const { media_type, id } = useParams();
-  console.log(seasonsData);
   return (
     <motion.div initial="initial" whileHover="whileHover" className="my-4">
       <TypographyH2 className="mb-4 pb-3 relative before:absolute before:left-0 before:bottom-0 before:w-9 before:h-1 before:bg-primary before:rounded-sm before:z-[-1] flex items-center justify-between">

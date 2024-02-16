@@ -121,16 +121,36 @@ interface ProductionCompanies {
   origin_country: string;
 }
 
-type Season = {
+type Episodes = {
   air_date: string;
-  episode_count: number;
+  episode_number: number;
+  episode_type: string;
   id: number;
+  name: string;
+  overview: string;
+  production_code: string;
+  runtime: number;
+  season_number: number;
+  show_id: number;
+  still_path: string;
+  vote_average: number;
+  vote_count: number;
+  crew: CastandCrewMember[];
+};
+
+type Season = {
+  _id: string; // this id for single season details
+  id: number;
+  air_date: string;
+  episodes: Episodes[];
+  episode_count: number;
   name: string;
   overview: string;
   poster_path: string;
   season_number: number;
   vote_average: number;
 };
+
 type SpokenLag = {
   english_name: string;
   iso_639_1: string;
