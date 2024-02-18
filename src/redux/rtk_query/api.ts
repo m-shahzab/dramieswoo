@@ -91,6 +91,7 @@ export const movieApi = createApi({
       }
     >({
       query: ({ id, page }) => {
+        // return `person/${id}/combined_credits`; // get all movies and series related to person
         return `/discover/movie?include_adult=true&with_people=${id}&page=${page}`;
       },
 
@@ -120,7 +121,6 @@ export const movieApi = createApi({
 
     getFavoriteList: builder.query<any, string>({
       queryFn: async (arg) => {
-        console.log("get list recall::::::::::");
         const data = await appwriteService.getFavList({
           user_id: String(arg),
         });
@@ -139,6 +139,7 @@ export const movieApi = createApi({
 export const {
   useGeTtrendingMoviesQuery,
   useGetInfoQuery,
+  useGetSeasonsDetailsQuery,
   useGetRecomendationsQuery,
   useGetCastCrewQuery,
   useGetMoviesByPersonQuery,

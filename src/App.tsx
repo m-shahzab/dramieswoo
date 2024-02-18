@@ -13,7 +13,6 @@ import { useFetchFavList } from "./hooks/fetchFavorite";
 import BackToTopBtn from "./components/BackToTopBtn";
 
 function App() {
-  // console.log("app");
   document.documentElement.scrollTop = 0;
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
   const { isLoading } = useGeTtrendingMoviesQuery(
@@ -24,11 +23,11 @@ function App() {
   );
   const { getCurrentUser } = useGetCurrentUser();
   const { fetchFavList } = useFetchFavList();
+
   useEffect(() => {
-    if (isLgn) {
-      getCurrentUser();
-    }
+    getCurrentUser();
   }, []);
+
   useEffect(() => {
     if (isLgn) fetchFavList({});
   }, [fetchFavList]);

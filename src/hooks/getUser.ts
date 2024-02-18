@@ -22,6 +22,7 @@ function useGetCurrentUser(): useGetCurrentUser {
         profileUrl: userData.prefs.profileUrl,
       };
       dispatch(login(userj));
+      // navigate("/");
     } else {
       dispatch(logout());
       navigate("/login");

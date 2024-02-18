@@ -136,6 +136,7 @@ type Episodes = {
   vote_average: number;
   vote_count: number;
   crew: CastandCrewMember[];
+  guest_stars: CastandCrewMember[];
 };
 
 type Season = {

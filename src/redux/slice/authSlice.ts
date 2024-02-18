@@ -36,6 +36,7 @@ export const authSlice = createSlice({
   reducers: {
     login: (state, action: PayloadAction<PayloadType>) => {
       state.status = true;
+      localStorage.setItem("isLogin", JSON.stringify(state.status));
       state.users = {
         id: action.payload.id,
         name: action.payload.name,
@@ -44,7 +45,6 @@ export const authSlice = createSlice({
         profileUrl: action.payload.profileUrl,
         phone: action.payload.phone,
       };
-      localStorage.setItem("isLogin", JSON.stringify(state.status));
     },
 
     logout: (state) => {

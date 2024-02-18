@@ -27,7 +27,6 @@ function PersonRelatedMovies() {
       setPage((prevPage) => prevPage + 1);
     }
   };
-
   return (
     <motion.div whileHover="whileHover" initial="initial">
       <TypographyH2 className="mb-4 pb-3 relative text-2xl before:absolute before:left-0 before:bottom-0 before:w-9 before:h-1 before:bg-primary before:rounded-sm before:z-[-1] space-x-3">

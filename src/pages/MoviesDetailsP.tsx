@@ -25,7 +25,6 @@ function MoviesDetailsP() {
         </div>
       ) : (
         <>
-          
           <Movies_Series_DetailsUi />
         </>
       )}

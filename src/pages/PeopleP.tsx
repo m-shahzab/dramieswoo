@@ -3,8 +3,7 @@ import PersonDetails from "@/components/movie/PersonDetails";
 import PersonRelatedMovies from "@/components/movie/PersonRelatedMovies";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
-  useGetPersonInfoQuery,
-  useGetMoviesByPersonQuery,
+  useGetPersonInfoQuery
 } from "@/redux/rtk_query/api";
 import { useParams } from "react-router-dom";
 

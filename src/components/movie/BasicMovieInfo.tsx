@@ -1,4 +1,3 @@
-import { TypographyH3 } from "../ui/Typography/TypographyH3";
 import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import { Link, useParams } from "react-router-dom";
 import { useGetInfoQuery } from "@/redux/rtk_query/api";

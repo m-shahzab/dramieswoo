@@ -3,10 +3,10 @@ import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import AnimateTitle from "../ui/Typography/AnimateTitle";
 import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
-import { months } from "@/components/movie/PersonDetails";
-import { MdOutlineStarPurple500 } from "react-icons/md";
 import { LuDot } from "react-icons/lu";
 import { TypographyP } from "../ui/Typography/TypographyP";
+import { Rating } from "./Rating";
+import { ReleaseDate } from "./ReleaseDate";
 
 function AllSeasonsSlider({
   seasonsData,
@@ -22,10 +22,6 @@ function AllSeasonsSlider({
         <AnimateTitle text="All Seasons"></AnimateTitle>
       </TypographyH2>
       {seasonsData.map((data) => {
-        const dateObj = new Date(data.air_date);
-        const month = months[dateObj.getMonth()];
-        const day = dateObj.getDate();
-        const year = dateObj.getFullYear();
         return (
           <div key={data.id} className="mb-4 pb-1 border-b">
             <div className="flex items-end">
@@ -46,12 +42,9 @@ function AllSeasonsSlider({
                   </Link>
                 </TypographyH2>
                 <div className="flex gap-x-2">
-                  <div className="flex items-center justify-center bg-primary px-2 rounded-full text-sm">
-                    <MdOutlineStarPurple500 />
-                    {data.vote_average}
-                  </div>
+                  <Rating rating={data.vote_average} />
                   <div className="flex items-center">
-                    <span>{year}</span>
+                    <ReleaseDate data={data.air_date} getFullYear />
                     <LuDot />
                     <span>{data.episode_count} Episode</span>
                   </div>
@@ -60,7 +53,7 @@ function AllSeasonsSlider({
                 {data.air_date && (
                   <TypographyP className="truncate">
                     Season {data.season_number} of {titleLable} premiered on{" "}
-                    {month} {day},{year}.
+                    <ReleaseDate data={data.air_date} />.
                   </TypographyP>
                 )}
               </div>
