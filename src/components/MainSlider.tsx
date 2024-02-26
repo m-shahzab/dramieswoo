@@ -76,6 +76,7 @@ function MainSlider({
                 <SwiperSlide key={uuidv4()}>
                   <MovieCard
                     movie={movie_and_people}
+                    whileInView
                     person={person}
                     linkPath={`/${
                       `${movie_and_people.media_type || "movie"}/` +

@@ -67,6 +67,37 @@ export const movieApi = createApi({
       },
     }),
 
+    infiniteScroll: builder.query<
+      Movies,
+      {
+        page: number;
+        genreId: string;
+        media_type: string;
+      }
+    >({
+      query: ({ page, genreId, media_type }) => {
+        return `discover/${media_type}?include_adult=true&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`;
+      },
+
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        return `${endpointName}(${queryArgs.genreId})`;
+      },
+      merge: (currentCache, newItems) => {
+        console.log(currentCache, "currentCache@@@@@");
+        const newMovies = newItems.results.filter(
+          (newMovie) =>
+            !currentCache.results.some(
+              (cachedMovie) => cachedMovie.id === newMovie.id
+            )
+        );
+        currentCache.results.push(...newMovies);
+      },
+
+      // Refetch when the page arg changes
+      forceRefetch: ({ currentArg, previousArg }) => {
+        return currentArg?.page !== previousArg?.page;
+      },
+    }),
     //get media('trailer,backdrops,posters') for movies and series
     getMedia: builder.query<Media, string>({
       query: (query) => query,
@@ -97,6 +128,8 @@ export const movieApi = createApi({
 
       // Only have one cache entry because the id always maps to one string
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        console.log(endpointName, "endpointName @@@@@");
+
         return `${endpointName}(${queryArgs.id})`;
       },
 
@@ -139,6 +172,7 @@ export const movieApi = createApi({
 export const {
   useGeTtrendingMoviesQuery,
   useGetInfoQuery,
+  useInfiniteScrollQuery,
   useGetSeasonsDetailsQuery,
   useGetRecomendationsQuery,
   useGetCastCrewQuery,

@@ -3,15 +3,18 @@ import { Link } from "react-router-dom";
 import AddToFavList from "./AddToFavListBtn";
 import React from "react";
 import { LuBookmarkPlus } from "react-icons/lu";
+import { motion } from "framer-motion";
 
 function MovieCard({
   movie,
   person = false,
   linkPath,
+  whileInView = false,
   className = "",
 }: {
   className?: string;
   movie: Results;
+  whileInView?: boolean;
   person?: boolean;
   linkPath?: string;
 }) {
@@ -22,8 +25,34 @@ function MovieCard({
     title: movie.title || movie.name,
     poster_path: movie.backdrop_path,
   };
+  const cardVariants = {
+    initial: {
+      opacity: 0,
+      scale: 0,
+      y: 150,
+    },
+    visible: (i = 1) => ({
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        type: "tween",
+        staggerChildren: 0.03,
+        delayChildren: 0.04 * i,
+      },
+    }),
+  };
   return (
-    <div className={`group rounded-md overflow-hidden ${className}`}>
+    <motion.div
+      className={`group rounded-md overflow-hidden ${className}`}
+      variants={cardVariants}
+      initial="initial"
+      viewport={{
+        once: true,
+      }}
+      whileInView={whileInView ? "visible" : "hidden"}
+      animate={!whileInView && "visible"}
+    >
       <div className="relative overflow-hidden">
         <div className="group-hover:scale-110 transition ease-in duration-200">
           <LazyImage
@@ -58,7 +87,7 @@ function MovieCard({
           </div>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
