@@ -124,7 +124,6 @@ export class appwriteService {
         docId
       );
       const msg = (this.message = "Deleted successfully");
-      console.log(userFavList, "from delete");
       if (userFavList) return msg;
     } catch (error) {
       console.error("Error deleting favorite list:", error);

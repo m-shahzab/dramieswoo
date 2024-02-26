@@ -11,7 +11,6 @@ function Left_MS_Details({
   imgUrl: string;
   movieTitle: string | undefined;
 }) {
-  console.log("left details");
   const { media_type, id } = useParams();
 
   const mediaType = media_type as "movie" | "tv";

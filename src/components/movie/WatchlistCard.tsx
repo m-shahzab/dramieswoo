@@ -1,12 +1,11 @@
 import LazyImage from "@/utils/LazyImage";
 import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 import { useAppSelector } from "@/redux/hooks";
 import Pagination from "@/lib/Pagination";
 import DeleteFavBtn from "./DeleteFavBtn";
+import { memo } from "react";
 
 function WatchlistCard() {
-  console.log("watchlist card::::::");
   const { documents: movie, total } = useAppSelector(
     (state) => state.movieSlice.favoriteList
   );
@@ -18,7 +17,7 @@ function WatchlistCard() {
   return (
     <>
       {movie.map((movie) => (
-        <div className="group rounded-md overflow-hidden" key={uuidv4()}>
+        <div className="group rounded-md overflow-hidden" key={movie.$id}>
           <div className="relative overflow-hidden">
             <div className="group-hover:scale-110 transition ease-in duration-200">
               <LazyImage
@@ -56,4 +55,4 @@ function WatchlistCard() {
   );
 }
 
-export default WatchlistCard;
+export default memo(WatchlistCard);

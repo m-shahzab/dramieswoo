@@ -15,7 +15,6 @@ function MovieCard({
   person?: boolean;
   linkPath?: string;
 }) {
-  // console.log("movie card");
   const title = movie.title || movie.name;
   const favData = {
     id: movie.id,

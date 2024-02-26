@@ -10,7 +10,6 @@ import { useDebounce } from "use-debounce";
 import ShowSearchData from "@/components/ShowSearchData";
 import { BeatLoader } from "react-spinners";
 function SearchP() {
-  console.log("search page");
   const [query, setQuery] = useState("");
   const [debouncedText, fn] = useDebounce(query, 800);
   const [showSearchData, setShowSearchData] = useState(false);

@@ -5,20 +5,23 @@ import { LuChevronUp } from "react-icons/lu";
 function BackToTopBtn() {
   console.log("backToTopBtn component");
   const [showGoTop, setShowGoTop] = useState(false);
-  const handleVisibleButton = () => {
-    if (window.scrollY >= 400) {
-      setShowGoTop(true);
-    } else {
-      setShowGoTop(false);
-    }
-  };
 
   const handleScrollUp = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
+    const handleVisibleButton = () => {
+      if (window.scrollY >= 400) {
+        setShowGoTop(true);
+      } else {
+        setShowGoTop(false);
+      }
+    };
     window.addEventListener("scroll", handleVisibleButton);
+    return () => {
+      window.removeEventListener("scroll", handleVisibleButton);
+    };
   }, []);
 
   return (

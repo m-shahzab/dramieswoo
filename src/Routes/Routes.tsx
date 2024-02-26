@@ -13,6 +13,7 @@ import {
   SeasonsDetailsP,
   PeopleP,
   SeriesP,
+  MovieWithGenre,
 } from "../pages";
 import PrivateRoute from "@/Routes/PrivateRoute";
 import PublicRoute from "@/Routes/PublicRoute";
@@ -92,6 +93,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MoviesDetailsP />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/genre/:id/:genreName/:media_type",
+        element: (
+          <PrivateRoute>
+            <MovieWithGenre />
           </PrivateRoute>
         ),
       },

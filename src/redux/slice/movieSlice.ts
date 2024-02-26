@@ -1,4 +1,3 @@
-import { DocumentTypes } from "@/appwrite/services";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type payloadType = {
@@ -46,7 +45,7 @@ const initialState: {
     year: "",
     startDate: "",
     endDate: "",
-    page: 0,
+    page: 1,
   },
   isTrailerOpen: false,
   moboFilter: false,
@@ -72,7 +71,6 @@ const movieSlice = createSlice({
       state.movieFilter.page = action.payload;
     },
     setFilter(state, action: PayloadAction<any>) {
-      console.log("action.payload", action.payload);
       state.movieFilter = { ...state.movieFilter, ...action.payload };
     },
     setTrailerOpen(state, action: PayloadAction<boolean>) {
@@ -88,18 +86,10 @@ const movieSlice = createSlice({
     },
 
     deleteFromFavoriteList(state, action: PayloadAction<string>) {
-      // state.favoriteList = {
-      //   ...state.favoriteList,
-      //   total: state.favoriteList.total - 1,
-      //   documents: state.favoriteList.documents.filter(
-      //     (doc) => doc.$id !== action.payload
-      //   ),
-      // };
       state.favoriteList.total = state.favoriteList.total - 1;
       state.favoriteList.documents = state.favoriteList.documents.filter(
         (doc) => doc.$id !== action.payload
       );
-      // console.log(action.payload);
     },
     addNewMovieToFavList(state, action: PayloadAction<FavoriteListType>) {
       state.favoriteList.total = state.favoriteList.total + 1;
@@ -109,7 +99,6 @@ const movieSlice = createSlice({
         action.payload,
         ...state.favoriteList.documents,
       ];
-      // state.favoriteList.documents[0] = action.payload.documents[0];
     },
   },
 });

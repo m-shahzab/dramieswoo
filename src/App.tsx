@@ -11,6 +11,7 @@ import Footer from "./components/home/Footer";
 import { useGetCurrentUser } from "./hooks/getUser";
 import { useFetchFavList } from "./hooks/fetchFavorite";
 import BackToTopBtn from "./components/BackToTopBtn";
+import Loader from "./components/Loader";
 
 function App() {
   document.documentElement.scrollTop = 0;
@@ -36,11 +37,7 @@ function App() {
       {isLgn && <NavBar />}
       <div className="@container App">
         {isLoading ? (
-          <Card className="h-screen grid place-items-center">
-            <CardHeader>
-              <BounceLoader size={60} color="#db5cbb" />
-            </CardHeader>
-          </Card>
+          <Loader />
         ) : (
           <>
             <Outlet />

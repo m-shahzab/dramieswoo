@@ -5,7 +5,6 @@ import { setFilter } from "@/redux/slice/movieSlice";
 import { useEffect } from "react";
 
 function SeriesP() {
-  console.log("series page:::");
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(

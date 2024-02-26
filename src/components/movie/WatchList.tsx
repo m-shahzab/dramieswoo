@@ -3,15 +3,14 @@ import AnimateTitle from "../ui/Typography/AnimateTitle";
 import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import { TypographyP } from "../ui/Typography/TypographyP";
 import WatchlistCard from "./WatchlistCard";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "@/redux/hooks";
+import { memo } from "react";
 
-function WatchList() {
-  const { documents: movie, total } = useAppSelector(
+const WatchList = memo(function WatchList() {
+  const { total } = useAppSelector(
     (state) => state.movieSlice.favoriteList
   );
-
   return (
     <motion.div
       initial="initial"
@@ -45,6 +44,5 @@ function WatchList() {
       </div>
     </motion.div>
   );
-}
-
+});
 export default WatchList;

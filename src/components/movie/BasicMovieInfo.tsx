@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import AllSeasonsSlider from "./AllSeasonsSlider";
 import AnimateTitle from "../ui/Typography/AnimateTitle";
 import { motion } from "framer-motion";
+import { string } from "zod";
 
 function BasicMovieInfo() {
   const { media_type, id } = useParams();
@@ -66,19 +67,22 @@ function BasicMovieInfo() {
       <TypographyH2 className="m-0 text-lg border-none">
         <div className="flex flex-wrap items-center gap-2">
           <span className="mr-1">Genres :</span>
-          {movieInfo?.genres.map((genre) => (
-            <Button
-              asChild
-              key={genre.name}
-              variant={"link"}
-              className="text-gray-400 p-0 font-semibold text-lg h-fit"
-              title={`Get movie by genre__${genre.name}`}
-            >
-              <Link to="#" onClick={() => alert(`${genre.name}, ${genre.id}`)}>
-                {genre.name}
-              </Link>
-            </Button>
-          ))}
+          {movieInfo?.genres.map((genre) => {
+            const genreName = genre.name.toLocaleLowerCase().replace(/ /g, "-");
+            return (
+              <Button
+                asChild
+                key={genre.name}
+                variant={"link"}
+                className="text-gray-400 p-0 font-semibold text-lg h-fit"
+                title={`Get movie by genre__${genre.name}`}
+              >
+                <Link to={`/genre/${genre.id}/${genreName}/${media_type}`}>
+                  {genre.name}
+                </Link>
+              </Button>
+            );
+          })}
         </div>
       </TypographyH2>
       <TypographyH2 className="m-0 text-lg border-none">

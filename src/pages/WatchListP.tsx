@@ -4,7 +4,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useAppSelector } from "@/redux/hooks";
 
 function WatchListP() {
-  console.log("watchList page");
   const favoriteList = useAppSelector((state) => state.movieSlice.favoriteList);
   return (
     <Container className="mt-16">

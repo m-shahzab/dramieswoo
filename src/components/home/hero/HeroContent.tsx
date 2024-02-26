@@ -21,7 +21,6 @@ interface HeroContentProps {
   movieInfo: Movie;
 }
 function HeroContent({ movieInfo }: HeroContentProps) {
-  console.log("hero Content");
   const year = new Date(
     movieInfo?.release_date || movieInfo.first_air_date
   ).getFullYear();

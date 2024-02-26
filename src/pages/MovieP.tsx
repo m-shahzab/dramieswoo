@@ -1,26 +1,9 @@
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import Movies_SeriesUi from "../components/movie/Movies_SeriesUi";
-import { useEffect, memo } from "react";
-import { setFilter } from "@/redux/slice/movieSlice";
+import { memo } from "react";
 
 function MovieP() {
-  console.log("movie page:::");
-
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(
-      setFilter({
-        genres: "",
-        popularity: "popularity.desc",
-        year: "",
-        startDate: "",
-        endDate: "",
-        page: 1,
-      })
-    );
-  }, []);
-
   const { page, genres, popularity, startDate, endDate } = useAppSelector(
     (state) => state.movieSlice.movieFilter
   );

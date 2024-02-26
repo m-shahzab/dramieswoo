@@ -11,10 +11,12 @@ import Cast_CrewP from "./Cast_CrewP";
 import MovieMediaP from "./MovieMediaP";
 import WatchListP from "./WatchListP";
 import SeasonsDetailsP from "./SeasonsDetailsP";
+import MovieWithGenre from "./MovieWithGenre";
 
 export {
   HomeP,
   MoviesDetailsP,
+  MovieWithGenre,
   SeasonsDetailsP,
   ProfileP,
   LoginP,

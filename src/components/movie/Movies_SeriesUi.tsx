@@ -22,7 +22,6 @@ function Movies_SeriesUi({
   isFetching: boolean;
   movieData: Movies | undefined;
 }) {
-  console.log("movie page");
   const { page } = useAppSelector((state) => state.movieSlice.movieFilter);
   const moboFilter = useAppSelector((state) => state.movieSlice.moboFilter);
   const dispatch = useAppDispatch();

@@ -9,7 +9,6 @@ import { ScaleLoader } from "react-spinners";
 import { motion } from "framer-motion";
 
 function PersonRelatedMovies() {
-  console.log("person related movies::");
   const { id } = useParams();
   const [page, setPage] = useState(1);
   const { data, isError, isLoading } = useGetMoviesByPersonQuery({

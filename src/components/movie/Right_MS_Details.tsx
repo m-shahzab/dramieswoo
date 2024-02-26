@@ -1,6 +1,5 @@
 import { Params, useParams } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
-import { RxSlash } from "react-icons/rx";
 import { useGetInfoQuery } from "@/redux/rtk_query/api";
 import { TypographyP } from "../ui/Typography/TypographyP";
 import { TypographyH2 } from "../ui/Typography/TypographyH2";
@@ -8,7 +7,6 @@ import AnimateTitle from "../ui/Typography/AnimateTitle";
 import AddToFavList from "./AddToFavListBtn";
 
 function Right_MS_Details({ className }: { className?: string }) {
-  console.log("right side detailssssss");
   const { media_type, id } = useParams<Params>();
   const { data: movieData } = useGetInfoQuery(`${media_type}/${id}`);
   const year =
