@@ -54,9 +54,11 @@ function MovieAndSeriesWithGenres() {
             }
           >
             <div className="grid gap-2 gap-y-6 @xs:grid-cols-2 @lg:grid-cols-3 @2xl:grid-cols-4 @4xl:grid-cols-5 @5xl:grid-cols-6">
-              {data.results.map((movie) => (
+              {data.results.map((movie, i) => (
                 <MovieCard
                   movie={movie}
+                  index={i % 20}
+                  whileInView
                   key={movie.id}
                   linkPath={`/${media_type}/${movie.id}/overview`}
                 />

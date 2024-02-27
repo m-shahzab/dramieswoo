@@ -71,11 +71,12 @@ function MainSlider({
           </TypographyH3>
         ) : (
           <>
-            {data?.results.map((movie_and_people) => {
+            {data?.results.map((movie_and_people, i) => {
               return (
                 <SwiperSlide key={uuidv4()}>
                   <MovieCard
                     movie={movie_and_people}
+                    index={i % 20}
                     whileInView
                     person={person}
                     linkPath={`/${

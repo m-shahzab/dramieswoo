@@ -11,10 +11,12 @@ function MovieCard({
   linkPath,
   whileInView = false,
   className = "",
+  index = 0,
 }: {
   className?: string;
   movie: Results;
   whileInView?: boolean;
+  index: number;
   person?: boolean;
   linkPath?: string;
 }) {
@@ -28,19 +30,19 @@ function MovieCard({
   const cardVariants = {
     initial: {
       opacity: 0,
-      scale: 0,
-      y: 150,
+      scale: 0.5,
+      x: whileInView ? 100 : 0,
     },
-    visible: (i = 1) => ({
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        type: "tween",
-        staggerChildren: 0.03,
-        delayChildren: 0.04 * i,
-      },
-    }),
+    visible: (i: number) => {
+      return {
+        opacity: 1,
+        scale: 1,
+        x: 0,
+        transition: {
+          delay: 0.04 * i,
+        },
+      } as any;
+    },
   };
   return (
     <motion.div
@@ -49,9 +51,11 @@ function MovieCard({
       initial="initial"
       viewport={{
         once: true,
+        margin: "50px",
       }}
       whileInView={whileInView ? "visible" : "hidden"}
       animate={!whileInView && "visible"}
+      custom={index + 1}
     >
       <div className="relative overflow-hidden">
         <div className="group-hover:scale-110 transition ease-in duration-200">
