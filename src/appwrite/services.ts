@@ -24,12 +24,6 @@ export interface FavListResult {
   data: DocumentTypes;
 }
 
-interface prefsInter {
-  profile: {
-    photoUrl: string;
-  };
-}
-
 export class appwriteService {
   client = new Client();
   account;

@@ -6,7 +6,7 @@ import {
   useGetMediaQuery,
   useGetRecomendationsQuery,
 } from "@/redux/rtk_query/api";
-import { Outlet, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function MoviesDetailsP() {
   const { media_type, id } = useParams();

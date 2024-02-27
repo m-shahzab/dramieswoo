@@ -5,7 +5,6 @@ import { Button } from "../ui/button";
 import AllSeasonsSlider from "./AllSeasonsSlider";
 import AnimateTitle from "../ui/Typography/AnimateTitle";
 import { motion } from "framer-motion";
-import { string } from "zod";
 
 function BasicMovieInfo() {
   const { media_type, id } = useParams();

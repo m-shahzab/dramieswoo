@@ -5,7 +5,6 @@ import { Button } from "../ui/button";
 import CastCard from "../Cast";
 
 export function ExpendContent({ data }: { data: Episodes }) {
-  const jobList = ["Director", "Writer"];
   const jobFilter = (str: string) => {
     return data.crew.filter((job) => job.job === str);
   };

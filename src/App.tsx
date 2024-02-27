@@ -1,6 +1,4 @@
 import { memo, useEffect } from "react";
-import { Card, CardHeader } from "@/components/ui/card";
-import { BounceLoader } from "react-spinners";
 import { Outlet } from "react-router-dom";
 import { useGeTtrendingMoviesQuery } from "./redux/rtk_query/api";
 import NavBar from "./components/home/hero/NavBar";

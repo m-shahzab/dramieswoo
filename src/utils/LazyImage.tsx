@@ -30,7 +30,7 @@ function LazyImage({
   const onError = (event: Event) => {
     (skeletonRef.current as HTMLDivElement).remove();
     const target = event.target as HTMLImageElement;
-    const parent = target.parentElement?.parentElement;
+    // const parent = target.parentElement?.parentElement;
     //we can show a default image here if img not loaded
     // target.src = "https://via.placeholder.com/300x450";
 
