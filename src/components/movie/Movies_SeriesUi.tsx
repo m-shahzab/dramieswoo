@@ -65,6 +65,7 @@ function Movies_SeriesUi({
                       <MovieCard
                         className="h-max"
                         movie={movie}
+                        index={i % 20}
                         key={i + movie.backdrop_path}
                         linkPath={`/${media_type + "/" + movie.id}/overview`}
                       />
@@ -84,6 +85,7 @@ function Movies_SeriesUi({
                       <MovieCard
                         className="h-max"
                         movie={movie}
+                        index={i % 20}
                         key={i + movie.poster_path}
                         linkPath={`/${media_type + "/" + movie.id}/overview`}
                       />

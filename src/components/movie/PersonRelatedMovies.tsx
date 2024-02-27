@@ -1,12 +1,12 @@
 import { useGetMoviesByPersonQuery } from "@/redux/rtk_query/api";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
 import MovieCard from "./MovieCard";
 import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import AnimateTitle from "../ui/Typography/AnimateTitle";
 import { ScaleLoader } from "react-spinners";
 import { motion } from "framer-motion";
+import CustomInfiniteScroll from "@/components/custom-infinite-scroll";
 
 function PersonRelatedMovies() {
   const { id } = useParams();
@@ -42,7 +42,7 @@ function PersonRelatedMovies() {
         <div className="text-center text-2xl">No Movies Found</div>
       )}
       {data?.results.length !== 0 && data && (
-        <InfiniteScroll
+        <CustomInfiniteScroll
           dataLength={data.results.length}
           next={fetchMoreData}
           hasMore={data.total_results !== data.results.length}
@@ -54,15 +54,16 @@ function PersonRelatedMovies() {
           }
         >
           <div className="grid gap-2 gap-y-6 @xs:grid-cols-2 @lg:grid-cols-3 @2xl:grid-cols-4 @4xl:grid-cols-5 @5xl:grid-cols-6">
-            {data.results.map((movie) => (
+            {data.results.map((movie, i) => (
               <MovieCard
                 movie={movie}
+                index={i % 20}
                 key={movie.id}
                 linkPath={`/${"movie" + "/" + movie.id}/overview`}
               />
             ))}
           </div>
-        </InfiniteScroll>
+        </CustomInfiniteScroll>
       )}
     </motion.div>
   );

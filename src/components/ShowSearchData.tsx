@@ -1,8 +1,7 @@
 import { useSearchQueryQuery } from "@/redux/rtk_query/api";
-import { v4 as uuidv4 } from "uuid";
 import { memo, useState } from "react";
 import MovieCard from "./movie/MovieCard";
-import InfiniteScroll from "react-infinite-scroll-component";
+import CustomInfiniteScroll from "./custom-infinite-scroll";
 const ShowSearchData = memo(function ShowSearchData({
   value,
   loadingRef,
@@ -58,7 +57,7 @@ const ShowSearchData = memo(function ShowSearchData({
             Total results "{data?.total_results}"
           </p>
           {data && (
-            <InfiniteScroll
+            <CustomInfiniteScroll
               dataLength={data.results.length}
               next={fetchMoreData}
               hasMore={data.total_results !== data.results.length}
@@ -70,12 +69,13 @@ const ShowSearchData = memo(function ShowSearchData({
               }
             >
               <div className="sssssssssss grid gap-2 gap-y-6 @xs:grid-cols-2 @lg:grid-cols-3 @2xl:grid-cols-4 @4xl:grid-cols-5 @5xl:grid-cols-6">
-                {data?.results.map((movie) => {
+                {data?.results.map((movie, i) => {
                   return (
                     <MovieCard
                       className="group h-max"
                       movie={movie}
                       key={movie.id}
+                      index={i % 20}
                       person={person}
                       linkPath={`/${
                         checkBoxId === "multi" ? movie.media_type : checkBoxId
@@ -86,7 +86,7 @@ const ShowSearchData = memo(function ShowSearchData({
                   );
                 })}
               </div>
-            </InfiniteScroll>
+            </CustomInfiniteScroll>
           )}
         </div>
       )}
