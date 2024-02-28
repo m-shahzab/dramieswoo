@@ -3,7 +3,6 @@ import { Button } from "./ui/button";
 import { LuChevronUp } from "react-icons/lu";
 
 function BackToTopBtn() {
-  console.log("backToTopBtn component");
   const [showGoTop, setShowGoTop] = useState(false);
 
   const handleScrollUp = () => {

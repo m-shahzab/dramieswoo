@@ -7,12 +7,12 @@ function LazyImage({
   autoHeight = false,
   alt = "",
   fullLoaded,
-  className = "",
+  className = " ",
 }: {
-  className: string;
+  className?: string;
   imgPath: string | undefined;
   autoHeight?: boolean;
-  fullLoaded?: () => void;
+  fullLoaded?: () => void; //callback function when image is fully loaded in backdrop slider in movie details page
   alt: string | undefined;
 }) {
   const skeletonRef = useRef<HTMLDivElement>(null);

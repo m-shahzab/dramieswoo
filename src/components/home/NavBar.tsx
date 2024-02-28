@@ -5,7 +5,6 @@ import { useNavigate, NavLink } from "react-router-dom";
 import Container from "@/components/container/Container";
 import Logo from "@/components/Logo";
 import { LuSearch } from "react-icons/lu";
-import { motion } from "framer-motion";
 import Aside from "@/components/Aside";
 import { useAppSelector } from "@/redux/hooks";
 import appwriteservice from "@/appwrite/services";
@@ -34,11 +33,8 @@ function NavBar() {
     },
   ];
   return (
-    <motion.nav
+    <nav
       className={`@container/navCon fixed z-10 top-0 left-0 right-0 bg-card/80`}
-      initial={{ opacity: 0, y: -100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.5 }}
     >
       <Container className="flex justify-between h-16 relative">
         <div id="left" className="h-full flex items-center">
@@ -90,7 +86,7 @@ function NavBar() {
           </Avatar>
         </div>
       </Container>
-    </motion.nav>
+    </nav>
   );
 }
 

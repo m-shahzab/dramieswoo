@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./slice/authSlice";
 import movieSlice from "./slice/movieSlice";
-
 import { movieApi } from "./rtk_query/api";
 
 export const store = configureStore({

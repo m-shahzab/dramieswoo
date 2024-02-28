@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import appwriteService from "@/appwrite/services";
-
 import tmdbConfi from "@/envConfi";
-console.log("api called");
 
 export const movieApi = createApi({
   reducerPath: "TMDBApi",
@@ -83,7 +81,6 @@ export const movieApi = createApi({
         return `${endpointName}(${queryArgs.genreId})`;
       },
       merge: (currentCache, newItems) => {
-        console.log(currentCache, "currentCache@@@@@");
         const newMovies = newItems.results.filter(
           (newMovie) =>
             !currentCache.results.some(
@@ -128,8 +125,6 @@ export const movieApi = createApi({
 
       // Only have one cache entry because the id always maps to one string
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        console.log(endpointName, "endpointName @@@@@");
-
         return `${endpointName}(${queryArgs.id})`;
       },
 

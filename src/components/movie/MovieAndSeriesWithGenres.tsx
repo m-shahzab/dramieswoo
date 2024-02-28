@@ -29,7 +29,6 @@ function MovieAndSeriesWithGenres() {
       setPage((prevPage) => prevPage + 1);
     }
   };
-  console.log(data, "  infinite scroll data @@@@@");
   return (
     <motion.div initial="initial" whileHover="whileHover">
       {data && (

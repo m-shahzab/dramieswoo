@@ -1,9 +1,12 @@
+import BackToTopBtn from "@/components/BackToTopBtn";
 import Hero from "@/components/home/hero/Hero";
 import Main from "@/components/home/main/Main";
 import { useAppDispatch } from "@/redux/hooks";
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
 import { nextTwoMovies } from "@/redux/slice/movieSlice";
 import { memo, useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
+import { ToastContainer } from "react-toastify";
 
 function Home() {
   const { data } = useGeTtrendingMoviesQuery(
@@ -11,7 +14,8 @@ function Home() {
   );
   const dispatch = useAppDispatch();
   const randamNum = useMemo(
-    () => Math.floor(Math.random() * (17 - 0 + 1) + 0),
+    // () => Math.floor(Math.random() * (17 - 0 + 1) + 0),
+    () => 7,
     []
   );
 
@@ -36,6 +40,11 @@ function Home() {
           <Main />
         </>
       )}
+      {createPortal(
+        <ToastContainer theme="dark" />,
+        document.getElementById("Toastify") as HTMLElement
+      )}
+      {createPortal(<BackToTopBtn />, document.body as HTMLElement)}
     </>
   );
 }

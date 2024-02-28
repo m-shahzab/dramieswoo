@@ -23,7 +23,6 @@ function Login() {
       setLoading(false);
     } catch (error: any) {
       setError(error.message);
-      console.log(error);
     } finally {
       setLoading(false);
     }

@@ -44,10 +44,9 @@ function RenderMovies() {
               animate={"visible"}
             >
               <div className="@4xl:flex-row @4xl:items-end flex flex-col items-center">
-                <div className="@4xl:w-[10rem] @4xl:h-60 w-60 bg-accent/50 relative rounded-lg overflow-hidden rounded-br-none group ">
+                <div className="@4xl:w-[10rem] @4xl:h-60 w-60 bg-accent relative rounded-lg overflow-hidden rounded-br-none group aspect-[9/15]">
                   <div className="group-hover:scale-110 h-full transition duration-200">
                     <LazyImage
-                      className=""
                       imgPath={`https://image.tmdb.org/t/p/w342/${movie.poster_path}`}
                       alt={movie.name || movie.title}
                     />

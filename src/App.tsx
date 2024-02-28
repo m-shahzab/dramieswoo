@@ -1,20 +1,16 @@
-import { memo, useEffect } from "react";
+import { Suspense, memo, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useGeTtrendingMoviesQuery } from "./redux/rtk_query/api";
-import NavBar from "./components/home/hero/NavBar";
-import { createPortal } from "react-dom";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Footer from "./components/home/Footer";
 import { useGetCurrentUser } from "./hooks/getUser";
 import { useFetchFavList } from "./hooks/fetchFavorite";
-import BackToTopBtn from "./components/BackToTopBtn";
 import Loader from "./components/Loader";
+import { Footer, NavBar } from "@/components";
 
 function App() {
   document.documentElement.scrollTop = 0;
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
-  const { isLoading } = useGeTtrendingMoviesQuery(
+  const { isFetching } = useGeTtrendingMoviesQuery(
     "trending/all/week?language=en-US",
     {
       skip: !isLgn,
@@ -31,25 +27,19 @@ function App() {
     if (isLgn) fetchFavList({});
   }, [fetchFavList]);
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       {isLgn && <NavBar />}
       <div className="@container App">
-        {isLoading ? (
+        {isFetching ? (
           <Loader />
         ) : (
           <>
             <Outlet />
-            <Footer />
-            {createPortal(
-              <ToastContainer theme="dark" />,
-              document.getElementById("Toastify") as HTMLElement
-            )}
-            {isLgn &&
-              createPortal(<BackToTopBtn />, document.body as HTMLElement)}
           </>
         )}
       </div>
-    </>
+      {isLgn && <Footer />}
+    </Suspense>
   );
 }
 export default memo(App);
