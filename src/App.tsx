@@ -1,12 +1,17 @@
-import { Suspense, memo, useEffect } from "react";
+import { Suspense, lazy, memo, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useGeTtrendingMoviesQuery } from "./redux/rtk_query/api";
 import "react-toastify/dist/ReactToastify.css";
 import { useGetCurrentUser } from "./hooks/getUser";
 import { useFetchFavList } from "./hooks/fetchFavorite";
 import Loader from "./components/Loader";
-import { Footer, NavBar } from "@/components";
-
+import { Footer, NavBar, BackToTopBtn } from "@/components";
+import { createPortal } from "react-dom";
+const ToastContainer = lazy(() =>
+  import("react-toastify").then((module) => ({
+    default: module.ToastContainer,
+  }))
+);
 function App() {
   document.documentElement.scrollTop = 0;
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
@@ -39,6 +44,12 @@ function App() {
         )}
       </div>
       {isLgn && <Footer />}
+      {isLgn &&
+        createPortal(
+          <ToastContainer theme="dark" />,
+          document.getElementById("Toastify") as HTMLElement
+        )}
+      {isLgn && createPortal(<BackToTopBtn />, document.body as HTMLElement)}
     </Suspense>
   );
 }
