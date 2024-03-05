@@ -37,7 +37,6 @@
     "cmdk": "^0.2.0",
     "framer-motion": "^10.16.5",
     "lucide-react": "^0.291.0",
-    "node-appwrite": "^11.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
@@ -50,7 +49,6 @@
     "swiper": "^11.0.4",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
-    "uninstall": "^0.0.0",
     "use-debounce": "^10.0.0",
     "uuid": "^9.0.1",
     "zod": "^3.22.4"
