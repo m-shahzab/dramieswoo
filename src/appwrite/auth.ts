@@ -54,7 +54,6 @@ export class AuthService {
   async login({ email, password }: { email: string; password: string }) {
     try {
       const acc = await this.account.createEmailSession(email, password);
-      alert(JSON.stringify(acc)); //why its return undefined on mobile browser
       return acc;
     } catch (error) {
       throw error;
