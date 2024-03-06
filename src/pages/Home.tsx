@@ -11,8 +11,7 @@ function Home() {
   );
   const dispatch = useAppDispatch();
   const randamNum = useMemo(
-    // () => Math.floor(Math.random() * (17 - 0 + 1) + 0),
-    () => 7,
+    () => Math.floor(Math.random() * (17 - 0 + 1) + 0),
     []
   );
 
