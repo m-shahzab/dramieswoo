@@ -1,19 +1,11 @@
 import { defineConfig, splitVendorChunkPlugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { chunkSplitPlugin } from "vite-plugin-chunk-split";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    splitVendorChunkPlugin(),
-    chunkSplitPlugin({
-      strategy: "unbundle",
-      customSplitting: {
-        // All files in `src/components` will be merged together in `container` chunk
-        container: [/src\/components/],
-      },
-    }),
+    splitVendorChunkPlugin()
   ],
   resolve: {
     alias: {
