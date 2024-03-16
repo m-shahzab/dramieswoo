@@ -14,19 +14,21 @@ function Hero({ contentInfo }: { contentInfo: string | undefined }) {
           <Skeleton className="h-full animate-pulse" />
         </div>
       ) : (
-        <>
-          <div className="absolute inset-0">
-            <LazyImage
-              className=""
-              imgPath={imgPath}
-              alt={data?.name || data?.title}
-            />
-            <div className="absolute inset-0 bg-heroOverlay/50"></div>
-          </div>
-          <Container className="w-full h-full relative overflow-hidden">
-            <HeroContent movieInfo={data as Movie} />
-          </Container>
-        </>
+        data && (
+          <>
+            <div className="absolute inset-0">
+              <LazyImage
+                className=""
+                imgPath={imgPath}
+                alt={data?.name || data?.title}
+              />
+              <div className="absolute inset-0 bg-heroOverlay/50"></div>
+            </div>
+            <Container className="w-full h-full relative overflow-hidden">
+              <HeroContent movieInfo={data} />
+            </Container>
+          </>
+        )
       )}
     </>
   );

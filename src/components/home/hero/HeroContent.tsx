@@ -22,8 +22,9 @@ interface HeroContentProps {
 }
 function HeroContent({ movieInfo }: HeroContentProps) {
   const year = new Date(
-    movieInfo?.release_date || movieInfo.first_air_date
+    movieInfo?.release_date || movieInfo?.first_air_date
   ).getFullYear();
+
   const rating = (6.832).toFixed(1);
   const hours = Math.floor(movieInfo.runtime / 60);
   const mint = movieInfo.runtime % 60;
@@ -115,7 +116,8 @@ function HeroContent({ movieInfo }: HeroContentProps) {
             <li className="flex items-center">
               <LuCalendarDays />
               <span className="ml-1">
-                year <span className="font-medium">: {year}</span>
+                year
+                <span className="font-medium">: {year ? year : "N/A"}</span>
               </span>
             </li>
           </motion.ul>

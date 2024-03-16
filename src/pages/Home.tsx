@@ -14,11 +14,10 @@ function Home() {
     () => Math.floor(Math.random() * (17 - 0 + 1) + 0),
     []
   );
-
   const copyData = [...(data?.results ?? [])];
   const next2Movie = copyData.splice(randamNum + 1, 2);
   const isMovieOrTv =
-    data?.results[randamNum].media_type === "movie" ? "movie" : "tv"; //get media type is movie or tv
+    data?.results[randamNum]?.media_type === "movie" ? "movie" : "tv"; //get media type is movie or tv
   const ID = data?.results[randamNum]?.id; // get id of random movie or tv
   const contentInfo = `${isMovieOrTv}/${ID}`; // get movieORtv info
   useEffect(() => {
