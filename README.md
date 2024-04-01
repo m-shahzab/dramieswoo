@@ -2,6 +2,12 @@
 
 DramiesWoo is a React-TS based movie website that allows users to search for movies by title and with cast names, sort them by genre and years, view trending and upcoming movies, and add their favorite movies to list. The website is designed to be user-friendly and visually appealing.
 
+# Login Details
+- Email
+  - one@gmail.com
+- Password
+  - 123123123
+
 # Features
 - Filtering: movies can be sorted by genre, popularity and years.
 - Enhanced Search Functionality
