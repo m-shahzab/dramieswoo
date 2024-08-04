@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/heroImage/:path*",
+      "destination": "https://image.tmdb.org/t/p/w1280/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/"
     }
