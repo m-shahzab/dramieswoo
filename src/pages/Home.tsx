@@ -3,7 +3,7 @@ import Main from "@/components/home/main/Main";
 import { useAppDispatch } from "@/redux/hooks";
 import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
 import { nextTwoMovies } from "@/redux/slice/movieSlice";
-import { memo, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 function Home() {
   const { data } = useGeTtrendingMoviesQuery(
@@ -12,6 +12,7 @@ function Home() {
   const dispatch = useAppDispatch();
   const randamNum = useMemo(
     () => Math.floor(Math.random() * (17 - 0 + 1) + 0),
+    // () => 17,
     []
   );
   const copyData = [...(data?.results ?? [])];
@@ -20,17 +21,23 @@ function Home() {
     data?.results[randamNum]?.media_type === "movie" ? "movie" : "tv"; //get media type is movie or tv
   const ID = data?.results[randamNum]?.id; // get id of random movie or tv
   const contentInfo = `${isMovieOrTv}/${ID}`; // get movieORtv info
+
   useEffect(() => {
     if (next2Movie) {
       dispatch(nextTwoMovies({ nextMovies: next2Movie }));
     }
-  }, []);
+  }, [next2Movie, dispatch]);
+
+  const heroBackdropImage = data?.results[randamNum].backdrop_path;
   return (
     <>
-      {next2Movie && (
+      {heroBackdropImage && next2Movie && (
         <>
           <div className="add_fix_height relative">
-            <Hero contentInfo={contentInfo} />
+            <Hero
+              contentInfo={contentInfo}
+              backdropImagePath={heroBackdropImage}
+            />
           </div>
           <Main />
         </>
@@ -39,4 +46,4 @@ function Home() {
   );
 }
 
-export default memo(Home);
+export default Home;

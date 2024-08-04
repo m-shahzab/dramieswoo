@@ -45,7 +45,7 @@ function Main() {
   ];
 
   return (
-    <Container className="">
+    <Container>
       {upcomingData &&
         allDataLists.map((allDataList, i) => (
           <MainSlider
@@ -60,4 +60,5 @@ function Main() {
   );
 }
 
-export default memo(Main);
+const MemoizedMain = memo(Main);
+export default MemoizedMain;

@@ -20,6 +20,7 @@ import AddToFavList from "@/components/movie/AddToFavListBtn";
 interface HeroContentProps {
   movieInfo: Movie;
 }
+
 function HeroContent({ movieInfo }: HeroContentProps) {
   const year = new Date(
     movieInfo?.release_date || movieInfo?.first_air_date
@@ -47,90 +48,92 @@ function HeroContent({ movieInfo }: HeroContentProps) {
     >
       <div className=" my-2 flex flex-col justify-center pr-4 w-full">
         <>
-          <motion.h1
-            className="font-nova scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
-            initial={{
-              opacity: 0,
-              x: -100,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-              transition: {
-                duration: 1,
-                delay: 0.5,
-              },
-            }}
+          <div
+            style={
+              {
+                // color: heroOverlayColorIsLight ? "black" : "white",
+              }
+            }
           >
-            <AnimateTitle
-              text={movieInfo?.title ?? movieInfo?.name}
-              rotate={360}
-            ></AnimateTitle>
-          </motion.h1>
-          <motion.div
-            className="my-1"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              type: "spring",
-              delay: 0.8,
-              stiffness: 200,
-            }}
-          >
-            <TypographyP className="m-0">{movieInfo?.tagline}</TypographyP>
-          </motion.div>
-          <motion.ul
-            className="@[700px]:w-max flex text-base flex-wrap gap-2 items-center uppercase"
-            initial={{
-              opacity: 0,
-              y: -100,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              type: "spring",
-              delay: 0.8,
-              stiffness: 200,
-            }}
-          >
-            <li className="flex items-center">
-              <LuStar />
-              <span className="ml-1">
-                IMDB <span className="font-medium">: {rating}</span>
-              </span>
-            </li>
-
-            {movieInfo.title && (
+            <motion.h1
+              className="font-nova scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
+              initial={{
+                opacity: 0,
+                x: -100,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+                transition: {
+                  duration: 1,
+                  delay: 0.5,
+                },
+              }}
+            >
+              <AnimateTitle
+                text={movieInfo?.title ?? movieInfo?.name}
+                rotate={360}
+              ></AnimateTitle>
+            </motion.h1>
+            <motion.div
+              className="my-1"
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                type: "spring",
+                delay: 0.8,
+                stiffness: 200,
+              }}
+            >
+              <TypographyP className="m-0">{movieInfo?.tagline}</TypographyP>
+            </motion.div>
+            <motion.ul
+              className="@[700px]:w-max flex text-base flex-wrap gap-2 items-center uppercase"
+              initial={{
+                opacity: 0,
+                y: -100,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                type: "spring",
+                delay: 0.8,
+                stiffness: 200,
+              }}
+            >
               <li className="flex items-center">
-                <LuClock />
+                <LuStar />
                 <span className="ml-1">
-                  Duration
-                  <span className="font-medium">
-                    : {hours}h {mint}m
-                  </span>
+                  IMDB <span className="font-medium">: {rating}</span>
                 </span>
               </li>
-            )}
-            <li className="flex items-center">
-              <LuCalendarDays />
-              <span className="ml-1">
-                year
-                <span className="font-medium">: {year ? year : "N/A"}</span>
-              </span>
-            </li>
-          </motion.ul>
-          <TypographyP className="w-full font-semibold text-lg text-justify">
-            {movieInfo?.overview
-              // .slice(0, 200)
-              .split(" ")
-              .map((text, index) => {
-                // const words = Array.from(
-                //   movieInfo.overview.slice(0, 200).split(" ")
-                // );
-                // const isLastIteration = index === words.length - 1;
-                return (
+
+              {movieInfo.title && (
+                <li className="flex items-center">
+                  <LuClock />
+                  <span className="ml-1">
+                    Duration
+                    <span className="font-medium">
+                      : {hours}h {mint}m
+                    </span>
+                  </span>
+                </li>
+              )}
+              <li className="flex items-center">
+                <LuCalendarDays />
+                <span className="ml-1">
+                  year
+                  <span className="font-medium">: {year ? year : "N/A"}</span>
+                </span>
+              </li>
+            </motion.ul>
+            <TypographyP className="w-full font-semibold text-lg text-justify">
+              {movieInfo?.overview
+                .slice(0, 200)
+                .split(" ")
+                .map((text, index, words) => (
                   <motion.span
                     className=""
                     key={uuidv4()}
@@ -141,11 +144,12 @@ function HeroContent({ movieInfo }: HeroContentProps) {
                       delay: 1 + index * 0.1,
                     }}
                   >
-                    {text + " "}
+                    {text + (index === words.length - 1 ? "..." : " ")}
                   </motion.span>
-                );
-              })}
-          </TypographyP>
+                ))}
+            </TypographyP>
+          </div>
+
           <motion.div
             className="flex justify-start flex-wrap gap-2"
             initial={{ opacity: 0, y: 100 }}
@@ -192,4 +196,5 @@ function HeroContent({ movieInfo }: HeroContentProps) {
     </motion.div>
   );
 }
-export default memo(HeroContent);
+const MemoHeroContent = memo(HeroContent);
+export default MemoHeroContent;

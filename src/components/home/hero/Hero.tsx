@@ -3,10 +3,55 @@ import { useGetInfoQuery } from "@/redux/rtk_query/api";
 import LazyImage from "@/utils/LazyImage";
 import HeroContent from "./HeroContent";
 import { Skeleton } from "@/components/ui/skeleton";
-import { memo } from "react";
-function Hero({ contentInfo }: { contentInfo: string | undefined }) {
+import getImageColor from "@/utils/getImagesColor";
+import { useEffect, useState } from "react";
+
+import { FastAverageColorResult } from "fast-average-color";
+
+function HeroImage({ imgPath }: { imgPath: string }) {
+  const [colorObject, setcolorObject] =
+    useState<FastAverageColorResult | null>();
+  useEffect(() => {
+    getImageColor(imgPath, {
+      algorithm: "simple",
+      mode: "speed",
+      ignoredColor: [
+        [255, 255, 255],
+        [0, 0, 0],
+      ],
+    }).then((color) => {
+      setcolorObject(color);
+    });
+  }, [imgPath]);
+  return (
+    <>
+      <div className="absolute inset-0">
+        <LazyImage imgPath={imgPath} alt="heroImage" />
+        <div
+          className="absolute inset-0 backdrop-blur-[5px]"
+          id="her0Overlay"
+          style={{
+            backgroundColor: `${colorObject?.rgb
+              .replace("rgb", "rgba")
+              .replace(")", ",0.640)")}`,
+          }}
+        />
+        <div className="absolute inset-0 bg-black/40"></div>
+      </div>
+    </>
+  );
+}
+
+function Hero({
+  contentInfo,
+  backdropImagePath,
+}: {
+  contentInfo: string | undefined;
+  backdropImagePath: string;
+}) {
   const { data, isLoading } = useGetInfoQuery(`${contentInfo}`); // its make api call based on contentInfo props if media type is movie then it will call ==> movie/{id} else tv/{id}
-  const imgPath = `https://image.tmdb.org/t/p/original/${data?.backdrop_path}`;
+
+  const imgPath = `/heroImage${backdropImagePath}`;
   return (
     <>
       {isLoading ? (
@@ -16,15 +61,11 @@ function Hero({ contentInfo }: { contentInfo: string | undefined }) {
       ) : (
         data && (
           <>
-            <div className="absolute inset-0">
-              <LazyImage
-                className=""
-                imgPath={imgPath}
-                alt={data?.name || data?.title}
-              />
-              <div className="absolute inset-0 bg-heroOverlay/50"></div>
-            </div>
-            <Container className="w-full h-full relative overflow-hidden">
+            <HeroImage imgPath={imgPath} />
+            <Container
+              className="w-full h-full relative overflow-hidden"
+              id="heroSection"
+            >
               <HeroContent movieInfo={data} />
             </Container>
           </>
@@ -33,4 +74,4 @@ function Hero({ contentInfo }: { contentInfo: string | undefined }) {
     </>
   );
 }
-export default memo(Hero);
+export default Hero;

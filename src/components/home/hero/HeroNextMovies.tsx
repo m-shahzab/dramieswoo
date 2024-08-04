@@ -66,8 +66,8 @@ function RenderMovies() {
                       <TypographyH3 className="truncate">
                         {movie.title ?? movie.name}
                       </TypographyH3>
-                      <TypographyP className="leading-6">
-                        {movie.overview.substring(0, 100) + "....."}
+                      <TypographyP className="leading-6 line-clamp-3 text-base">
+                        {movie.overview}
                       </TypographyP>
                       <div>
                         <AddToFavList

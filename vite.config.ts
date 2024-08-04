@@ -3,10 +3,20 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    splitVendorChunkPlugin()
-  ],
+  server: {
+    proxy: {
+      // Match requests starting with '/images'
+      "/heroImage": {
+        // Target URL of the TMDB image server
+        target: "https://image.tmdb.org/t/p/w1280/",
+        // Change origin to match your development server
+        changeOrigin: true,
+        // Optional: handle rewrites for cleaner paths (if needed)
+        rewrite: (path) => path.replace(/^\/heroImage/, ""),
+      },
+    },
+  },
+  plugins: [react(), splitVendorChunkPlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

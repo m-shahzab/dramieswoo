@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import AnimateTitle from "./ui/Typography/AnimateTitle";
 import MovieCard from "./movie/MovieCard";
 import { TypographyH3 } from "./ui/Typography/TypographyH3";
+
 function MainSlider({
   data,
   label,
@@ -93,4 +94,6 @@ function MainSlider({
     </motion.div>
   );
 }
-export default memo(MainSlider);
+
+const MemoMainSlider = memo(MainSlider);
+export default MemoMainSlider;
