@@ -8,6 +8,9 @@ DramiesWoo is a React-TS based movie website that allows users to search for mov
 - Password
   - 123123123
 
+# What's New?
+-  <a href="#hero-section">Hero Section Overlay Color</a> : Extract dominant color from image and set as overlay color for a seamless visual experience
+
 # Features
 - Filtering: movies can be sorted by genre, popularity and years.
 - Enhanced Search Functionality
@@ -37,7 +40,11 @@ DramiesWoo is built using the following technologies:
 
 # Pages Secreenshots
 ### Hero section
-![heroSection](https://github.com/m-shahzab/dramieswoo/assets/53417414/c33af748-ec34-402c-a28b-da18a9646385)
+
+I have implemented a feature to extract the dominant color from an image and apply it as the overlay color, resulting in a cohesive visual effect.
+
+![image](https://github.com/user-attachments/assets/a750e3bb-3212-4ed5-b2c7-196e01cfafd4)
+
 
 ### Movie | Series
 ![moviePage](https://github.com/m-shahzab/dramieswoo/assets/53417414/ac83c744-a695-41ef-bcc3-81e79c9edea5)
