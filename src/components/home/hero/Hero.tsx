@@ -13,7 +13,7 @@ function HeroImage({ imgPath }: { imgPath: string }) {
     useState<FastAverageColorResult | null>();
   useEffect(() => {
     getImageColor(imgPath, {
-      algorithm: "simple",
+      algorithm: "dominant",
       mode: "speed",
       ignoredColor: [
         [255, 255, 255],
@@ -28,15 +28,17 @@ function HeroImage({ imgPath }: { imgPath: string }) {
       <div className="absolute inset-0">
         <LazyImage imgPath={imgPath} alt="heroImage" />
         <div
-          className="absolute inset-0 backdrop-blur-[5px]"
+          className="absolute inset-0"
           id="her0Overlay"
           style={{
             backgroundColor: `${colorObject?.rgb
               .replace("rgb", "rgba")
-              .replace(")", ",0.640)")}`,
+              .replace(")", ",0.9)")}`,
           }}
         />
-        <div className="absolute inset-0 bg-black/40"></div>
+        {colorObject && colorObject.isLight && (
+          <div className="absolute inset-0 bg-black/50"></div>
+        )}
       </div>
     </>
   );
