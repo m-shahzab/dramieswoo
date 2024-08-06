@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Button } from "../ui/button";
 import { IoMdDownload } from "react-icons/io";
 import { imageDownload } from "@/utils/image.download";
+import { useParams } from "react-router-dom";
 
 export default function MediaCard({
   data,
@@ -13,6 +14,9 @@ export default function MediaCard({
   aspectratio?: string;
   isVideo?: boolean;
 }) {
+  const { pathSegment } = useParams();
+  console.log(pathSegment);
+  console.log("media cards");
   return (
     <div className="grid gap-2 grid-cols-1 @xs:grid-cols-2 @lg:grid-cols-3 @3xl:grid-cols-4 ">
       {data?.map((backdrop) => (
@@ -35,13 +39,15 @@ export default function MediaCard({
                 imgPath={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
                 alt=""
                 autoHeight
-                className={`rounded-md h-full ${aspectratio} object-contain`}
+                className={`rounded-md h-full ${aspectratio} ${
+                  pathSegment !== "posters" ? "object-contain" : "object-cover"
+                }`}
               />
             )}
           </div>
           {!isVideo && (
-            <div className="absolute bottom-1 flex w-[calc(100%-0.50rem)] justify-between items-center">
-              <figcaption className="rounded bg-card text-sm px-1">
+            <div className="absolute bottom-1 flex w-[calc(100%-0.50rem)] justify-between items-end">
+              <figcaption className="rounded bg-card text-sm px-1 h-fit">
                 {`${backdrop.width}x${backdrop.height}`}
               </figcaption>
               <Button
