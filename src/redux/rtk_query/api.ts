@@ -1,7 +1,27 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import appwriteService from "@/appwrite/services";
 import tmdbConfi from "@/envConfi";
+import { Models } from "appwrite";
 
+type FetchMoviesResponse = Movies | Movie;
+type TrendingQuery = { type: "trending"; query: string };
+type RecommendationsQuery = { type: "recommendations"; query: string };
+type InfoQuery = { type: "info"; query: string };
+type FetchMoviesQuery = TrendingQuery | RecommendationsQuery | InfoQuery;
+
+type FetchDataQuery = {
+  type: "media" | "castCrew" | "personInfo" | "seasonsDetails";
+  query: string | number;
+};
+type FetchDataResponse<T> = T extends "media"
+  ? Media
+  : T extends "castCrew"
+  ? CastAndCrew
+  : T extends "personInfo"
+  ? Person
+  : T extends "seasonsDetails"
+  ? Season
+  : never;
 export const movieApi = createApi({
   reducerPath: "TMDBApi",
   baseQuery: fetchBaseQuery({
@@ -13,168 +33,163 @@ export const movieApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    geTtrendingMovies: builder.query<Movies, string>({
-      query: (query) => `${query}`,
-    }),
-    getRecomendations: builder.query<Movies, string>({
-      query: (query) => `${query}/recommendations`,
-    }),
-
-    getInfo: builder.query<Movie, string>({
-      query: (query) => {
-        return query;
+    fetchMovies: builder.query<FetchMoviesResponse, FetchMoviesQuery>({
+      query: ({ type, query }) => {
+        switch (type) {
+          case "trending":
+            return `${query}`;
+          case "recommendations":
+            return `${query}/recommendations`;
+          case "info":
+            return query;
+          default:
+            throw new Error("Invalid query type");
+        }
       },
     }),
 
-    pagination: builder.query<Movies, number>({
-      query: (pageNo) => `movies?page=${pageNo}`,
-    }),
-
-    searchQuery: builder.query<
-      Movies,
-      {
-        page: number;
-        checkBoxId: string;
-        value: string;
-      }
+    getFavoriteList: builder.query<
+      Models.DocumentList<Models.Document>,
+      string
     >({
-      query: ({ checkBoxId, page, value }) => {
-        return `search/${checkBoxId}?query=${value}&page=${page}`;
-      },
-
-      serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        return `${endpointName}(${queryArgs.value})`;
-      },
-
-      merge: (currentCache, newItems) => {
-        const newMovies = newItems.results.filter(
-          (newMovie) =>
-            !currentCache.results.some(
-              (cachedMovie) => cachedMovie.id === newMovie.id
-            )
-        );
-        currentCache.results.push(...newMovies);
-      },
-
-      // Refetch when the value or page arg changes
-      forceRefetch: ({ currentArg, previousArg }) => {
-        return (
-          currentArg?.value !== previousArg?.value ||
-          currentArg?.page !== previousArg?.page
-        );
-      },
-    }),
-
-    infiniteScroll: builder.query<
-      Movies,
-      {
-        page: number;
-        genreId: string;
-        media_type: string;
-      }
-    >({
-      query: ({ page, genreId, media_type }) => {
-        return `discover/${media_type}?include_adult=true&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`;
-      },
-
-      serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        return `${endpointName}(${queryArgs.genreId})`;
-      },
-      merge: (currentCache, newItems) => {
-        const newMovies = newItems.results.filter(
-          (newMovie) =>
-            !currentCache.results.some(
-              (cachedMovie) => cachedMovie.id === newMovie.id
-            )
-        );
-        currentCache.results.push(...newMovies);
-      },
-
-      // Refetch when the page arg changes
-      forceRefetch: ({ currentArg, previousArg }) => {
-        return currentArg?.page !== previousArg?.page;
-      },
-    }),
-    //get media('trailer,backdrops,posters') for movies and series
-    getMedia: builder.query<Media, string>({
-      query: (query) => query,
-    }),
-    getCastCrew: builder.query<CastAndCrew, string>({
-      query: (query) => {
-        return `${query}/credits`;
-      },
-    }),
-
-    getPersonInfo: builder.query<Person, number>({
-      query: (query) => {
-        return `/person/${query}`;
-      },
-    }),
-
-    getMoviesByPerson: builder.query<
-      Movies,
-      {
-        id: number;
-        page: number;
-      }
-    >({
-      query: ({ id, page }) => {
-        // return `person/${id}/combined_credits`; // get all movies and series related to person
-        return `/discover/movie?include_adult=true&with_people=${id}&page=${page}`;
-      },
-
-      // Only have one cache entry because the id always maps to one string
-      serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        return `${endpointName}(${queryArgs.id})`;
-      },
-
-      merge: (currentCache, newItems) => {
-        const newMovies = newItems.results.filter(
-          (newMovie) =>
-            !currentCache.results.some(
-              (cachedMovie) => cachedMovie.id === newMovie.id
-            )
-        );
-        currentCache.results.push(...newMovies);
-      },
-
-      // Refetch when the id or page arg changes
-      forceRefetch: ({ currentArg, previousArg }) => {
-        return (
-          currentArg?.id !== previousArg?.id ||
-          currentArg?.page !== previousArg?.page
-        );
-      },
-    }),
-
-    getFavoriteList: builder.query<any, string>({
       queryFn: async (arg) => {
         const data = await appwriteService.getFavList({
           user_id: String(arg),
         });
-        return { data: data };
+        return { data: data } as { data: Models.DocumentList<Models.Document> };
+      },
+    }),
+    fetchData: builder.query<
+      FetchDataResponse<FetchDataQuery["type"]>,
+      FetchDataQuery
+    >({
+      query: ({ type, query }) => {
+        switch (type) {
+          case "media":
+            return `${query}`;
+          case "castCrew":
+            return `${query}/credits`;
+          case "personInfo":
+            return `/person/${query}`;
+          case "seasonsDetails":
+            return `${query}`;
+          default:
+            throw new Error("Invalid query type");
+        }
+      },
+      transformResponse: (response, _, arg) => {
+        switch (arg.type) {
+          case "media":
+            return response as Media;
+          case "castCrew":
+            return response as CastAndCrew;
+          case "personInfo":
+            return response as Person;
+          case "seasonsDetails":
+            return response as Season;
+          default:
+            throw new Error("Invalid query type");
+        }
       },
     }),
 
-    getSeasonsDetails: builder.query<Season, string>({
-      query: (query) => {
-        return query;
+    pagination: builder.query<Movies, number>({
+      query: (pageNo) => {
+        return `movies?page=${pageNo}`;
+      },
+    }),
+
+    fetchDataWinthInfiniteScroll: builder.query<
+      Movies,
+      {
+        type:
+          | "getMoviesByPerson"
+          | "searchQuery"
+          | "movieAndSeriesWithGenres"
+          | "pagination"; // type of query
+        id?: number;
+        page: number;
+        value?: string;
+        checkBoxId?: string;
+        genreId?: string;
+        media_type?: string;
+        query?: string;
+      }
+    >({
+      query: ({
+        type,
+        id,
+        page,
+        checkBoxId,
+        value,
+        genreId,
+        media_type,
+        query,
+      }) => {
+        switch (type) {
+          case "getMoviesByPerson":
+            return `/discover/movie?include_adult=true&with_people=${id}&page=${page}`;
+          case "searchQuery":
+            return `search/${checkBoxId}?query=${value}&page=${page}`;
+          case "movieAndSeriesWithGenres":
+            return `discover/${media_type}?include_adult=true&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`;
+          case "pagination":
+            return `${query}`;
+          default:
+            throw new Error("Invalid query type");
+        }
+      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        switch (queryArgs.type) {
+          case "getMoviesByPerson":
+            return `${endpointName}(${queryArgs.id})`;
+          case "searchQuery":
+            return `${endpointName}(${queryArgs.value})`;
+          case "movieAndSeriesWithGenres":
+            return `${endpointName}(${queryArgs.genreId})`;
+          case "pagination":
+            return `${endpointName}(${queryArgs.page})`;
+          default:
+            throw new Error("Invalid query type");
+        }
+      },
+      merge: (currentCache, newItems) => {
+        const newMovies = newItems.results.filter(
+          (newMovie) =>
+            !currentCache.results.some(
+              (cachedMovie) => cachedMovie.id === newMovie.id
+            )
+        );
+        currentCache.results.push(...newMovies);
+      },
+      forceRefetch: ({ currentArg, previousArg }) => {
+        switch (currentArg?.type) {
+          case "getMoviesByPerson":
+            return (
+              currentArg?.id !== previousArg?.id ||
+              currentArg?.page !== previousArg?.page
+            );
+          case "searchQuery":
+            return (
+              currentArg?.value !== previousArg?.value ||
+              currentArg?.page !== previousArg?.page
+            );
+          case "movieAndSeriesWithGenres":
+            return currentArg?.page !== previousArg?.page;
+          case "pagination":
+            return currentArg?.page !== previousArg?.page;
+          default:
+            return false;
+        }
       },
     }),
   }),
 });
 
 export const {
-  useGeTtrendingMoviesQuery,
-  useGetInfoQuery,
-  useInfiniteScrollQuery,
-  useGetSeasonsDetailsQuery,
-  useGetRecomendationsQuery,
-  useGetCastCrewQuery,
-  useGetMoviesByPersonQuery,
-  useGetPersonInfoQuery,
+  useFetchMoviesQuery,
+  useFetchDataQuery,
+  useFetchDataWinthInfiniteScrollQuery,
   useGetFavoriteListQuery,
-  useGetMediaQuery,
   usePaginationQuery,
-  useSearchQueryQuery,
 } = movieApi;

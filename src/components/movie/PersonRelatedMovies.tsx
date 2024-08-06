@@ -1,4 +1,4 @@
-import { useGetMoviesByPersonQuery } from "@/redux/rtk_query/api";
+import { useFetchDataWinthInfiniteScrollQuery } from "@/redux/rtk_query/api";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
@@ -11,9 +11,10 @@ import CustomInfiniteScroll from "@/components/custom-infinite-scroll";
 function PersonRelatedMovies() {
   const { id } = useParams();
   const [page, setPage] = useState(1);
-  const { data, isError, isLoading } = useGetMoviesByPersonQuery({
+  const { data, isError, isLoading } = useFetchDataWinthInfiniteScrollQuery({
     id: Number(id),
     page: page,
+    type: "getMoviesByPerson",
   });
   const fetchMoreData = () => {
     if (

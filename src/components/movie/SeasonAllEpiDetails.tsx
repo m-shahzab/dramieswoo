@@ -1,7 +1,4 @@
-import {
-  useGetInfoQuery,
-  useGetSeasonsDetailsQuery,
-} from "@/redux/rtk_query/api";
+import { useFetchDataQuery, useFetchMoviesQuery } from "@/redux/rtk_query/api";
 import { useParams } from "react-router-dom";
 import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import AnimateTitle from "../ui/Typography/AnimateTitle";
@@ -15,11 +12,15 @@ import { ExpendEpisode } from "./ExpendEpisode";
 
 function SeasonAllEpiDetails() {
   const { media_type, id, season_number } = useParams();
-  const { isFetching: movieFetching, data: movieData } = useGetInfoQuery(
-    `${media_type}/${id}`
-  );
+  const { isFetching: movieFetching, data: movieData } = useFetchMoviesQuery({
+    type: "info",
+    query: `${media_type}/${id}`,
+  }) as { isFetching: boolean; data: Movie };
   const { isFetching: episodesFetching, data: episodesData } =
-    useGetSeasonsDetailsQuery(`${media_type}/${id}/season/${season_number}`);
+    useFetchDataQuery({
+      type: "seasonsDetails",
+      query: `${media_type}/${id}/season/${season_number}`,
+    }) as { isFetching: boolean; data: Season };
   const year = new Date(episodesData?.air_date ?? "").getFullYear();
   return (
     <>

@@ -1,14 +1,17 @@
 import Container from "@/components/container/Container";
 import MediaCard from "@/components/movie/MediaCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetMediaQuery } from "@/redux/rtk_query/api";
+import { useFetchDataQuery } from "@/redux/rtk_query/api";
 import { useParams } from "react-router-dom";
 
 function MovieMediaP() {
   const { media_type, id, pathSegment } = useParams();
-  const { data, isFetching } = useGetMediaQuery(
-    `${media_type}/${id}/${pathSegment !== "videos" ? "images" : "videos"}`
-  );
+  const { data, isFetching } = useFetchDataQuery({
+    type: "media",
+    query: `${media_type}/${id}/${
+      pathSegment !== "videos" ? "images" : "videos"
+    }`,
+  }) as { data: Media; isFetching: boolean };
   return (
     <Container className="@container mt-16">
       {isFetching ? (

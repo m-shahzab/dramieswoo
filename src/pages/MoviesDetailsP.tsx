@@ -1,21 +1,24 @@
 import Movies_Series_DetailsUi from "@/components/movie/Movies_Series_DetailsUi";
 import Container from "@/components/container/Container";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  useGetInfoQuery,
-  useGetMediaQuery,
-  useGetRecomendationsQuery,
-} from "@/redux/rtk_query/api";
+import { useFetchDataQuery, useFetchMoviesQuery } from "@/redux/rtk_query/api";
 import { useParams } from "react-router-dom";
 
 function MoviesDetailsP() {
   const { media_type, id } = useParams();
-  const { isFetching: movieFetching } = useGetInfoQuery(`${media_type}/${id}`);
-  const { isFetching } = useGetMediaQuery(`${media_type}/${id}/images`);
+  const { isFetching: movieFetching } = useFetchMoviesQuery({
+    query: `${media_type}/${id}`,
+    type: "info",
+  });
+  const { isFetching } = useFetchDataQuery({
+    type: "media",
+    query: `${media_type}/${id}/images`,
+  });
 
-  const { isFetching: recomFetching } = useGetRecomendationsQuery(
-    `${media_type}/${id}`
-  );
+  const { isFetching: recomFetching } = useFetchMoviesQuery({
+    type: "recommendations",
+    query: `${media_type}/${id}`,
+  });
 
   return (
     <Container className="">

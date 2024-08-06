@@ -1,6 +1,6 @@
 import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import { Link, useParams } from "react-router-dom";
-import { useGetInfoQuery } from "@/redux/rtk_query/api";
+import { useFetchMoviesQuery } from "@/redux/rtk_query/api";
 import { Button } from "../ui/button";
 import AllSeasonsSlider from "./AllSeasonsSlider";
 import AnimateTitle from "../ui/Typography/AnimateTitle";
@@ -8,7 +8,10 @@ import { motion } from "framer-motion";
 
 function BasicMovieInfo() {
   const { media_type, id } = useParams();
-  const { data: movieInfo } = useGetInfoQuery(`${media_type}/${id}`);
+  const { data: movieInfo } = useFetchMoviesQuery({
+    type: "info",
+    query: `${media_type}/${id}`,
+  }) as { data: Movie };
   const isMovie = media_type === "movie";
   const hours = Math.floor(Number(movieInfo?.runtime) / 60);
   const mint = Number(movieInfo?.runtime) % 60;

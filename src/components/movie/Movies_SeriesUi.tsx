@@ -112,4 +112,5 @@ function Movies_SeriesUi({
   );
 }
 
-export default memo(Movies_SeriesUi);
+const MemoMovies_SeriesUi = memo(Movies_SeriesUi);
+export default MemoMovies_SeriesUi;

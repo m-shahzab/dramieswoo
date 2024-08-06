@@ -1,4 +1,4 @@
-import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
+import { useFetchMoviesQuery } from "@/redux/rtk_query/api";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Movies_SeriesUi from "../components/movie/Movies_SeriesUi";
 import { setFilter } from "@/redux/slice/movieSlice";
@@ -22,9 +22,10 @@ function SeriesP() {
   const { page, genres, popularity, startDate, endDate } = useAppSelector(
     (state) => state.movieSlice.movieFilter
   );
-  const { data: movieData, isFetching } = useGeTtrendingMoviesQuery(
-    `discover/tv?include_adult=true&include_video=false&language=en-US&page=${page}&first_air_date.gte=${startDate}&first_air_date.lte=${endDate}&sort_by=${popularity}&with_genres=${genres}`
-  );
+  const { data: movieData, isFetching } = useFetchMoviesQuery({
+    type: "trending",
+    query: `discover/tv?include_adult=true&include_video=false&language=en-US&page=${page}&first_air_date.gte=${startDate}&first_air_date.lte=${endDate}&sort_by=${popularity}&with_genres=${genres}`,
+  });
   return (
     <div>
       <Movies_SeriesUi

@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/redux/hooks";
-import { useGetMediaQuery } from "@/redux/rtk_query/api";
+import { useFetchDataQuery } from "@/redux/rtk_query/api";
 import { setTrailerOpen } from "@/redux/slice/movieSlice";
 import { useEffect } from "react";
 import { BeatLoader } from "react-spinners";
@@ -10,7 +10,10 @@ type TrailerTypes = {
 };
 
 function Trailer({ media_type, id }: TrailerTypes) {
-  const { data, isFetching } = useGetMediaQuery(`${media_type}/${id}/videos`);
+  const { data, isFetching } = useFetchDataQuery({
+    type: "media",
+    query: `${media_type}/${id}/videos`,
+  }) as { data: Media; isFetching: boolean };
 
   const getTrailerVideo = () => {
     if (data) {

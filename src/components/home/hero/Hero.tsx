@@ -1,5 +1,5 @@
 import Container from "@/components/container/Container";
-import { useGetInfoQuery } from "@/redux/rtk_query/api";
+import { useFetchMoviesQuery } from "@/redux/rtk_query/api";
 import LazyImage from "@/utils/LazyImage";
 import HeroContent from "./HeroContent";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -51,7 +51,10 @@ function Hero({
   contentInfo: string | undefined;
   backdropImagePath: string;
 }) {
-  const { data, isLoading } = useGetInfoQuery(`${contentInfo}`); // its make api call based on contentInfo props if media type is movie then it will call ==> movie/{id} else tv/{id}
+  const { data, isLoading } = useFetchMoviesQuery({
+    type: "info",
+    query: `${contentInfo}`,
+  }); // its make api call based on contentInfo props if media type is movie then it will call ==> movie/{id} else tv/{id}
 
   const imgPath = `/heroImage${backdropImagePath}`;
   return (
@@ -68,7 +71,7 @@ function Hero({
               className="w-full h-full relative overflow-hidden"
               id="heroSection"
             >
-              <HeroContent movieInfo={data} />
+              <HeroContent movieInfo={data as Movie} />
             </Container>
           </>
         )

@@ -1,22 +1,29 @@
 import Container from "@/components/container/Container";
-import { useGeTtrendingMoviesQuery } from "@/redux/rtk_query/api";
+import { useFetchMoviesQuery } from "@/redux/rtk_query/api";
 import MainSlider from "@/components/MainSlider";
 import { memo } from "react";
 
 function Main() {
-  const { data: allData } = useGeTtrendingMoviesQuery(
-    "trending/all/week?language=en-US"
-  );
-  const { data: movieData } = useGeTtrendingMoviesQuery(
-    "trending/movie/day?language=en-US"
-  );
-  const { data: seriesData } = useGeTtrendingMoviesQuery(
-    "trending/tv/day?language=en-US"
-  );
-  const { data: personData } = useGeTtrendingMoviesQuery("person/popular");
-  const { data: upcomingData } = useGeTtrendingMoviesQuery(
-    "movie/upcoming?language=en-US&page=1&region=br"
-  );
+  const { data: allData } = useFetchMoviesQuery({
+    type: "trending",
+    query: "trending/all/week?language=en-US",
+  });
+  const { data: movieData } = useFetchMoviesQuery({
+    type: "trending",
+    query: "trending/movie/day?language=en-US",
+  });
+  const { data: seriesData } = useFetchMoviesQuery({
+    type: "trending",
+    query: "trending/tv/day?language=en-US",
+  });
+  const { data: personData } = useFetchMoviesQuery({
+    type: "trending",
+    query: "person/popular",
+  });
+  const { data: upcomingData } = useFetchMoviesQuery({
+    type: "trending",
+    query: "movie/upcoming?language=en-US&page=1&region=br",
+  });
 
   const allDataLists = [
     {

@@ -1,6 +1,6 @@
 import { Suspense, lazy, memo, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { useGeTtrendingMoviesQuery } from "./redux/rtk_query/api";
+import { useFetchMoviesQuery } from "./redux/rtk_query/api";
 import "react-toastify/dist/ReactToastify.css";
 import { useGetCurrentUser } from "./hooks/getUser";
 import { useFetchFavList } from "./hooks/fetchFavorite";
@@ -15,12 +15,12 @@ const ToastContainer = lazy(() =>
 function App() {
   document.documentElement.scrollTop = 0;
   const isLgn = JSON.parse(localStorage.getItem("isLogin") || "false");
-  const { isFetching } = useGeTtrendingMoviesQuery(
-    "trending/all/week?language=en-US",
-    {
-      skip: !isLgn,
-    }
+
+  const { isFetching } = useFetchMoviesQuery(
+    { type: "trending", query: "trending/all/week?language=en-US" },
+    { skip: !isLgn }
   );
+
   const { getCurrentUser } = useGetCurrentUser();
   const { fetchFavList } = useFetchFavList();
 
@@ -53,4 +53,6 @@ function App() {
     </Suspense>
   );
 }
-export default memo(App);
+
+const MemoApp = memo(App);
+export default MemoApp;

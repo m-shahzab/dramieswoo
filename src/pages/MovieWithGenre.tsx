@@ -1,14 +1,13 @@
 import Container from "@/components/container/Container";
 import MovieAndSeriesWithGenres from "@/components/movie/MovieAndSeriesWithGenres";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  useInfiniteScrollQuery,
-} from "@/redux/rtk_query/api";
+import { useFetchDataWinthInfiniteScrollQuery } from "@/redux/rtk_query/api";
 import { useParams } from "react-router-dom";
 
 export default function MovieWithGenre() {
   const { media_type, id } = useParams();
-  const { isLoading } = useInfiniteScrollQuery({
+  const { isLoading } = useFetchDataWinthInfiniteScrollQuery({
+    type: "movieAndSeriesWithGenres",
     page: 1,
     genreId: id!,
     media_type: media_type!,

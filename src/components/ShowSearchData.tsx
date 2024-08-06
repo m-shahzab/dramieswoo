@@ -1,7 +1,8 @@
-import { useSearchQueryQuery } from "@/redux/rtk_query/api";
+import { useFetchDataWinthInfiniteScrollQuery } from "@/redux/rtk_query/api";
 import { memo, useState } from "react";
 import MovieCard from "./movie/MovieCard";
 import CustomInfiniteScroll from "./custom-infinite-scroll";
+
 const ShowSearchData = memo(function ShowSearchData({
   value,
   loadingRef,
@@ -14,16 +15,13 @@ const ShowSearchData = memo(function ShowSearchData({
   loadingRef: React.MutableRefObject<HTMLDivElement | null>;
 }) {
   const [page, setPage] = useState(1);
-  const { data, isFetching, isError, isLoading } = useSearchQueryQuery(
-    {
+  const { data, isFetching, isError, isLoading } =
+    useFetchDataWinthInfiniteScrollQuery({
+      type: "searchQuery",
       value: value,
       page: page,
       checkBoxId: checkBoxId,
-    },
-    {
-      skip: value === "",
-    }
-  );
+    });
 
   if (!isFetching && loadingRef.current) {
     loadingRef.current.style.display = "none";

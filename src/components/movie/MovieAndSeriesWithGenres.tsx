@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import MovieCard from "./MovieCard";
 import CustomInfiniteScroll from "@/components/custom-infinite-scroll";
 import { memo, useState } from "react";
-import { useInfiniteScrollQuery } from "@/redux/rtk_query/api";
+import { useFetchDataWinthInfiniteScrollQuery } from "@/redux/rtk_query/api";
 
 function MovieAndSeriesWithGenres() {
   const { genreName, media_type, id } = useParams();
@@ -13,7 +13,8 @@ function MovieAndSeriesWithGenres() {
     .replace(/-/g, " ")
     .replace(/\b\w/g, (l) => l.toUpperCase());
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError } = useInfiniteScrollQuery({
+  const { data, isLoading, isError } = useFetchDataWinthInfiniteScrollQuery({
+    type: "movieAndSeriesWithGenres",
     page: page,
     genreId: id!,
     media_type: media_type!,
@@ -69,4 +70,6 @@ function MovieAndSeriesWithGenres() {
     </motion.div>
   );
 }
-export default memo(MovieAndSeriesWithGenres);
+
+const MemoMovieAndSeriesWithGenres = memo(MovieAndSeriesWithGenres);
+export default MemoMovieAndSeriesWithGenres;

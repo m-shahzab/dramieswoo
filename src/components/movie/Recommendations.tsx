@@ -1,9 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useGetRecomendationsQuery } from "@/redux/rtk_query/api";
+import { useFetchMoviesQuery } from "@/redux/rtk_query/api";
 import MainSlider from "../MainSlider";
 function Recommendations() {
   const { media_type, id } = useParams();
-  const { data } = useGetRecomendationsQuery(`${media_type}/${id}`);
+  const { data } = useFetchMoviesQuery({
+    type: "recommendations",
+    query: `${media_type}/${id}`,
+  });
   return (
     <div>
       <MainSlider label={`${media_type}`} title="Recomendations" data={data} />

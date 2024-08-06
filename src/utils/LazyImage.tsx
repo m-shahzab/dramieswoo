@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/utils";
 import { useRef } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
@@ -47,7 +48,7 @@ function LazyImage({
       <LazyLoadImage
         src={imgPath}
         alt={alt}
-        className={`object-cover object-center h-full w-full ${className}`}
+        className={cn("object-cover object-center h-full w-full", className)}
         onLoad={onLoad as () => void}
         onError={onError as () => void}
         wrapperProps={{

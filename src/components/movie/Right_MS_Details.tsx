@@ -1,6 +1,6 @@
 import { Params, useParams } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
-import { useGetInfoQuery } from "@/redux/rtk_query/api";
+import { useFetchMoviesQuery } from "@/redux/rtk_query/api";
 import { TypographyP } from "../ui/Typography/TypographyP";
 import { TypographyH2 } from "../ui/Typography/TypographyH2";
 import AnimateTitle from "../ui/Typography/AnimateTitle";
@@ -8,7 +8,10 @@ import AddToFavList from "./AddToFavListBtn";
 
 function Right_MS_Details({ className }: { className?: string }) {
   const { media_type, id } = useParams<Params>();
-  const { data: movieData } = useGetInfoQuery(`${media_type}/${id}`);
+  const { data: movieData } = useFetchMoviesQuery({
+    query: `${media_type}/${id}`,
+    type: "info",
+  }) as { data: Movie };
   const year =
     movieData?.release_date?.split("-")[0] ||
     movieData?.first_air_date?.split("-")[0];
