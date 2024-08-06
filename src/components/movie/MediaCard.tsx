@@ -1,5 +1,8 @@
 import LazyImage from "@/utils/LazyImage";
 import { v4 as uuidv4 } from "uuid";
+import { Button } from "../ui/button";
+import { IoMdDownload } from "react-icons/io";
+import { imageDownload } from "@/utils/image.download";
 
 export default function MediaCard({
   data,
@@ -28,19 +31,31 @@ export default function MediaCard({
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture fullscreen"
               ></iframe>
             ) : (
-              // https://image.tmdb.org/t/p/w780${backdrop.file_path}
               <LazyImage
                 imgPath={`https://image.tmdb.org/t/p/w780${backdrop.file_path}`}
                 alt=""
                 autoHeight
-                className={`rounded-md h-full ${aspectratio}`}
+                className={`rounded-md h-full ${aspectratio} object-contain`}
               />
             )}
           </div>
           {!isVideo && (
-            <figcaption className="absolute bottom-1 right-1.5 mt-2 rounded bg-card px-1 text-sm backdrop-blur-sm">
-              {`${backdrop.width}x${backdrop.height}`}
-            </figcaption>
+            <div className="absolute bottom-1 flex w-[calc(100%-0.50rem)] justify-between items-center">
+              <figcaption className="rounded bg-card text-sm px-1">
+                {`${backdrop.width}x${backdrop.height}`}
+              </figcaption>
+              <Button
+                variant={"link"}
+                className="m-0 p-0 h-auto text-3xl focus:ring-2 ring-primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  imageDownload(backdrop.file_path);
+                }}
+                title="Download Image"
+              >
+                <IoMdDownload className="m-0 p-1 bg-card rounded-sm" />
+              </Button>
+            </div>
           )}
         </figure>
       ))}

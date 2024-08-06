@@ -14,6 +14,11 @@ export default defineConfig({
         // Optional: handle rewrites for cleaner paths (if needed)
         rewrite: (path) => path.replace(/^\/heroImage/, ""),
       },
+      "/downloadImage": {
+        target: "https://image.tmdb.org/t/p/original/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/downloadImage/, ""),
+      },
     },
   },
   plugins: [react(), splitVendorChunkPlugin()],
