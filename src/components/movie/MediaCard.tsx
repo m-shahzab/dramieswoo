@@ -15,8 +15,6 @@ export default function MediaCard({
   isVideo?: boolean;
 }) {
   const { pathSegment } = useParams();
-  console.log(pathSegment);
-  console.log("media cards");
   return (
     <div className="grid gap-2 grid-cols-1 @xs:grid-cols-2 @lg:grid-cols-3 @3xl:grid-cols-4 ">
       {data?.map((backdrop) => (
