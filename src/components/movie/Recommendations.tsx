@@ -6,7 +6,7 @@ function Recommendations() {
   const { data } = useFetchMoviesQuery({
     type: "recommendations",
     query: `${media_type}/${id}`,
-  });
+  }) as { data: Movies };
   return (
     <div>
       <MainSlider label={`${media_type}`} title="Recomendations" data={data} />
