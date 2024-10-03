@@ -31,6 +31,7 @@ function ProfileSelect({
       <TypographyH3 className="text-center">Upload Image</TypographyH3>
       <Input
         type="file"
+        accept="image/*"
         onChange={(e) => inputH(e)}
         className="bg-card-foreground text-black"
       />
