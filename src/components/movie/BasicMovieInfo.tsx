@@ -73,10 +73,9 @@ function BasicMovieInfo() {
             const genreName = genre.name.toLocaleLowerCase().replace(/ /g, "-");
             return (
               <Button
-                asChild
                 key={genre.name}
                 variant={"link"}
-                className="text-gray-400 p-0 font-semibold text-lg h-fit"
+                className="p-0 font-semibold text-lg h-fit"
                 title={`Get movie by genre__${genre.name}`}
               >
                 <Link to={`/genre/${genre.id}/${genreName}/${media_type}`}>
@@ -95,7 +94,7 @@ function BasicMovieInfo() {
             return (
               <span
                 className={`${
-                  isOrgLang && "text-primary underline"
+                  isOrgLang && "text-primary hover:cursor-not-allowed"
                 } text-gray-400`}
                 key={lang.iso_639_1}
                 title={`${
@@ -115,9 +114,8 @@ function BasicMovieInfo() {
       <TypographyH2 className="m-0 text-lg border-none">
         <span className="mr-1">Cast & Crew :</span>
         <Button
-          asChild
           variant={"link"}
-          className="text-gray-400 p-0 font-semibold text-lg h-fit"
+          className="p-0 font-semibold text-lg h-fit"
           title="see full cast and crew"
         >
           <Link to="cast-crew">See full cast and crew</Link>
@@ -128,10 +126,9 @@ function BasicMovieInfo() {
           <span className="mr-1">Media :</span>
           {mediaLinks.map((media) => (
             <Button
-              asChild
               key={media.name}
               variant={"link"}
-              className="text-gray-400 p-0 font-semibold text-lg h-fit"
+              className="p-0 font-semibold text-lg h-fit"
               title={`see all ${media.name}`}
             >
               <Link to={media.path}>{media.name}</Link>
