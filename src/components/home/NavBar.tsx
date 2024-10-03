@@ -34,7 +34,7 @@ function NavBar() {
   ];
   return (
     <nav
-      className={`@container/navCon fixed z-10 top-0 left-0 right-0 bg-card/80`}
+      className={`@container/navCon fixed z-50 top-0 left-0 right-0 bg-card/80`}
     >
       <Container className="flex justify-between h-16 relative">
         <div id="left" className="h-full flex items-center">
