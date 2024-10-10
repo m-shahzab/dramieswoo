@@ -24,7 +24,7 @@ function SeriesP() {
   );
   const { data: movieData, isFetching } = useFetchMoviesQuery({
     type: "trending",
-    query: `discover/tv?include_adult=true&include_video=false&language=en-US&page=${page}&first_air_date.gte=${startDate}&first_air_date.lte=${endDate}&sort_by=${popularity}&with_genres=${genres}`,
+    query: `discover/tv?include_video=false&language=en-US&page=${page}&first_air_date.gte=${startDate}&first_air_date.lte=${endDate}&sort_by=${popularity}&with_genres=${genres}`,
   }) as { data: Movies; isFetching: boolean };
   return (
     <div>

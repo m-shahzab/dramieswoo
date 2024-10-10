@@ -8,7 +8,7 @@ function MovieP() {
   );
   const { data: movieData, isFetching } = useFetchMoviesQuery({
     type: "trending",
-    query: `discover/movie?include_adult=true&include_video=false&language=en-US&page=${page}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}&sort_by=${popularity}&with_genres=${genres}`,
+    query: `discover/movie?include_video=false&language=en-US&page=${page}&primary_release_date.gte=${startDate}&primary_release_date.lte=${endDate}&sort_by=${popularity}&with_genres=${genres}`,
   }) as { data: Movies; isFetching: boolean };
   return (
     <div>

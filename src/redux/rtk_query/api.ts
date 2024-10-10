@@ -128,11 +128,11 @@ export const movieApi = createApi({
       }) => {
         switch (type) {
           case "getMoviesByPerson":
-            return `/discover/movie?include_adult=true&with_people=${id}&page=${page}`;
+            return `/discover/movie?with_people=${id}&page=${page}&include_adult=false`;
           case "searchQuery":
             return `search/${checkBoxId}?query=${value}&page=${page}`;
           case "movieAndSeriesWithGenres":
-            return `discover/${media_type}?include_adult=true&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`;
+            return `discover/${media_type}?include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreId}`;
           case "pagination":
             return `${query}`;
           default:
