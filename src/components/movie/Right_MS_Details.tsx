@@ -26,15 +26,17 @@ function Right_MS_Details({ className }: { className?: string }) {
     poster_path: String(movieData?.backdrop_path),
   };
   return (
-    <div id="rightDetails" className={`p-1 ${className}`}>
+    <div id="rightDetails" className={`self-end ${className}`}>
       <TypographyH2 className="border-none space-x-1 pb-[0_!important]">
         <AnimateTitle text={title} className="@xl:inline-block hidden" />
         <AnimateTitle text={shortTitle} className="@xl:hidden inline-block" />
         {year && <span className="text-[0.7em] text-gray-500">({year})</span>}
       </TypographyH2>
-      <TypographyP className="mb-3 text-lg leading-[1] italic text-gray-400">
-        {movieData?.tagline}
-      </TypographyP>
+      {movieData?.tagline && (
+        <TypographyP className="mb-3 text-lg leading-[1] italic text-gray-400">
+          {movieData.tagline}
+        </TypographyP>
+      )}
       <TypographyP className="mb-3 text-lg leading-[1] italic">
         <span className="">{movieData?.vote_average.toFixed(1)}</span>
         <span className="text-2xl text-gray-400">/</span>
