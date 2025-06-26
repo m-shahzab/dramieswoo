@@ -29,6 +29,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@reduxjs/toolkit": "^1.9.7",
     "@splidejs/react-splide": "^0.7.12",
+    "@splidejs/splide": "^4.1.4",
     "@tailwindcss/container-queries": "^0.1.1",
     "@types/greensock": "^1.15.32",
     "appwrite": "^13.0.0",
